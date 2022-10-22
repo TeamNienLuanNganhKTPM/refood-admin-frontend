@@ -1,9 +1,12 @@
 /** @format */
 
+import LayoutDashboardTable from "layout/LayoutDashboardTable";
 import React from "react";
 
 const ProductPage = () => {
-  return <div>ProductPage</div>;
+  return (
+    <LayoutDashboardTable title="Danh sách sản phẩm"></LayoutDashboardTable>
+  );
 };
 
 export default ProductPage;

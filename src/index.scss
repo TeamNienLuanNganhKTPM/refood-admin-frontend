@@ -13,4 +13,60 @@
   input {
     @apply outline-none;
   }
+  table {
+    @apply w-full max-w-full;
+  }
+  th {
+    @apply bg-grayf3 p-4 rounded text-lg text-text2 text-left;
+  }
+  tbody td:first-child {
+    @apply left-0;
+  }
+  tr {
+    @apply border-b border-b-grayf3;
+  }
+  td {
+    @apply p-4 text-left text-base text-text2;
+  }
+}
+
+.pagination {
+  display: flex;
+  box-shadow: 0 10px 20px 0 rgba(black, 0.25);
+  li {
+    // background-color: #e2e4ec;
+    color: #202435;
+    padding: 6px 12px;
+    border: 1px solid #d9d9e9;
+    flex: 1;
+    list-style: none;
+    text-align: center;
+    position: relative;
+    font-size: 18px;
+    font-weight: 500;
+    transition: 0.5s ease;
+    cursor: pointer;
+    user-select: none;
+    &:hover {
+      background-color: rgba(white, 0.25);
+      color: #1dc071;
+    }
+  }
+  .selected {
+    @apply text-primary;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 99;
+}
+.overflow {
+  overflow: hidden;
+  transition: all 0.3s linear;
 }

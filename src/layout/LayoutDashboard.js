@@ -14,7 +14,7 @@ const LayoutDashboard = () => {
       <DashboardTopbar></DashboardTopbar>
       <div className="flex items-start gap-x-10">
         <DashboardSidebar></DashboardSidebar>
-        <div className="flex-1">
+        <div className="flex-1 bg-white rounded-md shadow-[10px_10px_20px_rgba(218,_213,_213,_0.15)] p-[30px]">
           <Outlet></Outlet>
         </div>
       </div>
