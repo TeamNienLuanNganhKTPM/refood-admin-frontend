@@ -6,7 +6,7 @@ import DashboardSearch from "./DashboardSearch";
 
 const DashboardTopbar = () => {
   return (
-    <div className="flex items-center justify-between mb-8">
+    <div className="flex items-center justify-between pb-8 border-b border-b-line">
       <div className="flex items-center flex-1 gap-x-10">
         <Link to="/" className="inline-block">
           <img
@@ -15,9 +15,9 @@ const DashboardTopbar = () => {
             className="max-w-auto h-[52px]"
           />
         </Link>
-        <div className=" max-w-[458px] w-full">
+        {/* <div className=" max-w-[458px] w-full">
           <DashboardSearch></DashboardSearch>
-        </div>
+        </div> */}
       </div>
       <div className="flex items-center justify-end flex-1 gap-x-10">
         <span className="w-[52px] h-[52px] bg-red-200 text-error flex items-center justify-center rounded-full relative cursor-pointer">

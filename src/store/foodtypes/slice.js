@@ -6,12 +6,14 @@ const foodTypeSlice = createSlice({
   name: "foodTypes",
   initialState: {},
   reducers: {
-    getAllFoodTypes: (state) => ({
+    getAllFoodTypes: (state, { payload }) => ({
       ...state,
+      ...payload,
     }),
     updateAllFoodTypes: (state, { payload }) => ({
       ...state,
-      foodtypes: payload,
+      pageNumber: payload.pageNum,
+      foodtypes: payload.foodtypes,
     }),
     deleteFoodType: (state, { payload }) => ({
       ...state,

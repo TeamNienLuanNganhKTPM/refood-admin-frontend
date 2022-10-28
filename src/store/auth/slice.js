@@ -21,8 +21,9 @@ const authSlice = createSlice({
       admin: payload.admin_info,
       accessToken: payload.admin_access_token,
     }),
+    authLogOut: (state, action) => ({}),
   },
 });
 
-export const { authLogin, authUpdate } = authSlice.actions;
+export const { authLogin, authUpdate, authLogOut } = authSlice.actions;
 export default authSlice.reducer;

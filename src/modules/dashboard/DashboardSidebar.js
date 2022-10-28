@@ -11,7 +11,9 @@ import {
   IconWithdraw,
 } from "components/icons";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { authLogOut } from "store/auth/slice";
 const sidebarLinks = [
   {
     icon: <IconDashboard></IconDashboard>,
@@ -41,7 +43,7 @@ const sidebarLinks = [
   {
     icon: <IconProfile></IconProfile>,
     title: "Khách hàng",
-    url: "/profile",
+    url: "/profile/customer",
   },
   {
     icon: <IconLogout></IconLogout>,
@@ -58,12 +60,22 @@ const sidebarLinks = [
 const DashboardSidebar = () => {
   const navlinkClass =
     "flex items-center gap-x-5 md:w-12 md:h-12 md:justify-center md:rounded-lg md:mb-8  last:mt-auto last:bg-white last:shadow-sdprimary";
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <div className="w-full md:w-[76px] rounded-3xl bg-white shadow-[10px_10px_20px_rgba(218,_213,_213,_0.15)] px-[14px] py-10 flex flex-col flex-shrink-0">
       {sidebarLinks.map((link) => {
         if (link.url === "/logout") {
           return (
-            <button className={navlinkClass} key={link.title}>
+            <button
+              className={navlinkClass}
+              key={link.title}
+              onClick={() => {
+                dispatch(authLogOut());
+                navigate("/login");
+              }}
+            >
               <span>{link.icon}</span>
               <span className="md:hidden">{link.title}</span>
             </button>
@@ -76,7 +88,7 @@ const DashboardSidebar = () => {
             className={({ isActive }) =>
               isActive
                 ? `${navlinkClass} text-primary bg-primary bg-opacity-20`
-                : `${navlinkClass} text-icon-color`
+                : `${navlinkClass} text-icon-color hover:bg-primary hover:text-primary hover:bg-opacity-20 transition-all`
             }
           >
             <span>{link.icon}</span>

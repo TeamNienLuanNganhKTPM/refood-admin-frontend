@@ -5,17 +5,17 @@ import {
   deleteFoodTypesApi,
   getAllFoodTypesApi,
   updateFoodTypesApi,
-} from "api/foods";
+} from "api/typesfood";
 import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import Swal from "sweetalert2";
 import { getAllFoodTypes, updateAllFoodTypes } from "./slice";
 
-function* handleGetAllFoodTypes() {
+function* handleGetAllFoodTypes({ payload }) {
   try {
-    const response = yield call(getAllFoodTypesApi);
+    const response = yield call(getAllFoodTypesApi, payload);
     if (response.status === 200) {
-      yield put(updateAllFoodTypes(response.data.foodtypes));
+      yield put(updateAllFoodTypes(response.data));
     }
   } catch (error) {
     const { message } = error.response.data;

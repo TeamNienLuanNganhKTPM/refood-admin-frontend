@@ -27,4 +27,21 @@ function* handleAdminLogin({ payload }) {
     });
   }
 }
-export { handleAdminLogin };
+
+function* logAdminOut() {
+  yield put(
+    authUpdate({
+      admin: undefined,
+      accessToken: null,
+    })
+  );
+  localStorage.clear();
+  Swal.fire({
+    position: "center",
+    icon: "success",
+    text: "Đăng xuất thành công!",
+    showConfirmButton: false,
+    timer: 2000,
+  });
+}
+export { handleAdminLogin, logAdminOut };

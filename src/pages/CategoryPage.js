@@ -2,27 +2,33 @@
 
 import { Button } from "components/button";
 import ModalForm from "components/modal/ModalForm";
+import { typesFood } from "constants/constants";
 import useModal from "hooks/useModal";
 import LayoutDashboardTable from "layout/LayoutDashboardTable";
 import AddTypesFood from "modules/typesfood/AddTypesFood";
 import ListTypesFood from "modules/typesfood/ListTypesFood";
-import UpdateTypesFood from "modules/typesfood/UpdateTypesFood";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFoodType, getAllFoodTypes } from "store/foodtypes/slice";
+import { getAllFoodTypes } from "store/foodtypes/slice";
+import Swal from "sweetalert2";
 
 const CategoryPage = () => {
+  const [nextPage, setNextPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
   const { modalIsOpen, openModal, closeModal } = useModal();
   const dispatch = useDispatch();
 
   useEffect(() => {
     function fetchAllFoodTypes() {
       try {
-        dispatch(getAllFoodTypes());
+        dispatch(
+          getAllFoodTypes({
+            pageCur: typesFood.pageCurDefault,
+            numOnPage: typesFood.pageOnNum,
+          })
+        );
       } catch (error) {
         console.log(error);
       }
@@ -30,18 +36,30 @@ const CategoryPage = () => {
     fetchAllFoodTypes();
   }, [dispatch]);
 
-  const { foodtypes } = useSelector((state) => state.foodTypes);
-  const data = foodtypes ? foodtypes : [];
+  const { foodtypes, pageNumber } = useSelector((state) => state.foodTypes);
 
   // Paginate Page
   useEffect(() => {
-    if (!data || !data?.length) return;
-    setPageCount(Math.ceil(data.length / 5));
-  }, [foodtypes, itemOffset]);
+    if (!foodtypes || !foodtypes?.length) return;
+    setPageCount(pageNumber);
+  }, [foodtypes, nextPage, pageNumber]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * 5) % data.length;
-    setItemOffset(newOffset);
+    setNextPage(event.selected + 1);
+    Swal.fire({
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    }).then((result) => {
+      dispatch(
+        getAllFoodTypes({
+          pageCur: event.selected + 1,
+          numOnPage: typesFood.pageOnNum,
+        })
+      );
+    });
   };
 
   const handleOpenAdd = () => {
@@ -68,10 +86,10 @@ const CategoryPage = () => {
           </tr>
         </thead>
         <tbody>
-          <ListTypesFood data={data}></ListTypesFood>
+          <ListTypesFood data={foodtypes}></ListTypesFood>
         </tbody>
       </table>
-      <div className="flex justify-center mt-8 bg-white rounded">
+      <div className="flex justify-end mt-8 bg-white rounded">
         <ReactPaginate
           breakLabel="..."
           nextLabel=">>"

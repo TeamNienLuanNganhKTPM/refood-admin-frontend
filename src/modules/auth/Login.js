@@ -25,7 +25,7 @@ const Login = () => {
     handleSubmit,
     control,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onSubmit",
@@ -36,7 +36,6 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const handleLoginForm = (values) => {
-    if (!isValid) return;
     dispatch(authLogin(values));
     reset({});
   };

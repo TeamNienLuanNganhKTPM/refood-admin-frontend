@@ -25,7 +25,10 @@ function App() {
           ></Route>
           <Route path="/order" element={<OrderPage></OrderPage>}></Route>
           <Route path="/invoice" element={<InvoicePage></InvoicePage>}></Route>
-          <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
+          <Route
+            path="/profile/customer"
+            element={<ProfilePage></ProfilePage>}
+          ></Route>
         </Route>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
       </Routes>
