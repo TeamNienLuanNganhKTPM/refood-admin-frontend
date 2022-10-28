@@ -3,14 +3,15 @@
 import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
-const LoginPage = lazy(() => import("./pages/LoginPage"));
-const DashboardPage = lazy(() => import("./pages/DashboardPage"));
-const ProductPage = lazy(() => import("./pages/ProductPage"));
-const CategoryPage = lazy(() => import("./pages/CategoryPage"));
-const OrderPage = lazy(() => import("./pages/OrderPage"));
-const InvoicePage = lazy(() => import("./pages/InvoicePage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const ProductPage = lazy(() => import("./pages/ProductPage"));
+const OrderPage = lazy(() => import("./pages/OrderPage"));
+const OrderDetailPage = lazy(() => import("./pages/OrderDetailPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
 const LayoutDashboard = lazy(() => import("./layout/LayoutDashboard"));
+const InvoicePage = lazy(() => import("./pages/InvoicePage"));
+const DashboardPage = lazy(() => import("./pages/DashboardPage"));
+const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
             element={<CategoryPage></CategoryPage>}
           ></Route>
           <Route path="/order" element={<OrderPage></OrderPage>}></Route>
+          <Route
+            path="order/:slug"
+            element={<OrderDetailPage></OrderDetailPage>}
+          ></Route>
           <Route path="/invoice" element={<InvoicePage></InvoicePage>}></Route>
           <Route
             path="/profile/customer"

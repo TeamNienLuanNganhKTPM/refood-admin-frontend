@@ -14,7 +14,7 @@
     @apply outline-none;
   }
   table {
-    @apply w-full max-w-full;
+    @apply w-full max-w-full overflow-x-scroll;
   }
   th {
     @apply bg-grayf3 p-4 rounded text-lg text-text2 text-left;
