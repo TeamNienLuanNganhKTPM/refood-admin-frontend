@@ -18,3 +18,11 @@ export const deleteFoodApi = async (data) => {
     url: "/admin/management/food/food-delete",
   });
 };
+
+export const addFoodAdminApi = async (data) => {
+  return await instance.request({
+    method: "POST",
+    data: data,
+    url: `/admin/management/food/food-add`,
+  });
+};

@@ -1,6 +1,6 @@
 /** @format */
 
-import { deleteFoodApi, getAllFoodsApi } from "api/foods";
+import { addFoodAdminApi, deleteFoodApi, getAllFoodsApi } from "api/foods";
 import { call, put } from "redux-saga/effects";
 import Swal from "sweetalert2";
 import { getAllFoods, updateAllFoods } from "./slice";
@@ -36,4 +36,15 @@ function* handleDeleteFood({ payload }) {
   }
 }
 
-export { handleGetAllFoods, handleDeleteFood };
+function* handleAddFood({ payload }) {
+  console.log("function*handleAddFood ~ payload", payload);
+  try {
+    const response = yield call(addFoodAdminApi, payload);
+    console.log("function*handleAddFood ~ response", response);
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+export { handleGetAllFoods, handleDeleteFood, handleAddFood };

@@ -25,7 +25,7 @@ const OrderDetail = () => {
   const { orderDetail } = useSelector((state) => state.orders);
   const data = orderDetail?.OrderDetails ? orderDetail?.OrderDetails : [];
   return (
-    <div>
+    <>
       <div className="flex items-center justify-between py-2 border-b border-b-line">
         <div className="flex cursor-pointer text-text">
           <svg
@@ -103,7 +103,7 @@ const OrderDetail = () => {
           </Price>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

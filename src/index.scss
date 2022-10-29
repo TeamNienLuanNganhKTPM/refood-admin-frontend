@@ -70,3 +70,23 @@
   overflow: hidden;
   transition: all 0.3s linear;
 }
+
+// Scroll
+.scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #c2c2d3;
+  border-radius: 10px;
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+  background: #6f49fd;
+}
+
+input[type="file"] {
+  display: none;
+}

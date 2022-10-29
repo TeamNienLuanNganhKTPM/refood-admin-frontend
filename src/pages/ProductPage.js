@@ -11,14 +11,15 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAllFoods } from "store/foods/slice";
 import Swal from "sweetalert2";
 
 const ProductPage = () => {
   const [nextPage, setNextPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
-  const { modalIsOpen, openModal, closeModal } = useModal();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function fetchAllFood() {
@@ -65,12 +66,15 @@ const ProductPage = () => {
   return (
     <LayoutDashboardTable title="Danh sách sản phẩm">
       <div className="flex justify-end mb-8">
-        <Button kind="primary" className="w-[200px]" onClick={openModal}>
+        <Button
+          kind="primary"
+          className="w-[200px]"
+          onClick={() => {
+            navigate("/product/add");
+          }}
+        >
           Thêm món ăn
         </Button>
-        <ModalForm modalIsOpen={modalIsOpen} closeModal={closeModal}>
-          <AddFood closeModal={closeModal}></AddFood>
-        </ModalForm>
       </div>
       <table>
         <thead>

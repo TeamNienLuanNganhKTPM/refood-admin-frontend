@@ -28,7 +28,7 @@ const Input = (props) => {
         id={name}
         type={type}
         className={classNames(
-          "w-full px-6 py-4 text-sm font-medium border rounded-xl placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-transparent focus:border-primary",
+          "w-full px-6 py-4 text-sm font-medium border rounded-xl placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-grayf3 focus:border-primary",
           error.length > 0
             ? "border-error text-error"
             : "border-strock text-text1 dark:border-darkStroke",

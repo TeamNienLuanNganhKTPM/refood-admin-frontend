@@ -12,6 +12,7 @@ const LayoutDashboard = lazy(() => import("./layout/LayoutDashboard"));
 const InvoicePage = lazy(() => import("./pages/InvoicePage"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
+const AddFood = lazy(() => import("./modules/foods/AddFood"));
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route element={<LayoutDashboard></LayoutDashboard>}>
           <Route path="/" element={<DashboardPage></DashboardPage>}></Route>
           <Route path="/product" element={<ProductPage></ProductPage>}></Route>
+          <Route path="product/add" element={<AddFood></AddFood>}></Route>
           <Route
             path="/category"
             element={<CategoryPage></CategoryPage>}

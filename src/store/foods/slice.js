@@ -19,10 +19,11 @@ const foodSlice = createSlice({
       ...state,
       ...payload,
     }),
-    addFood: (state, { payload }) => ({
-      ...state,
-      ...payload,
-    }),
+    addFood: (state) => {
+      return {
+        ...state,
+      };
+    },
     updateFood: (state, { payload }) => ({
       ...state,
       ...payload,
