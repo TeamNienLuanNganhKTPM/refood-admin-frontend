@@ -7,16 +7,16 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 const MutilInputForm = ({ setPriceRation }) => {
-  const [inputField, setInputField] = useState([{ price: "", ration: "" }]);
+  const [inputField, setInputField] = useState([{ price: 0, ration: 0 }]);
 
   const handleChangeInput = (e, index) => {
     const values = [...inputField];
-    values[index][e.target.name] = e.target.value;
+    values[index][e.target.name] = Number(e.target.value);
     setInputField(values);
   };
 
   const handleAddFields = () => {
-    setInputField([...inputField, { price: "", ration: "" }]);
+    setInputField([...inputField, { price: 0, ration: 0 }]);
   };
 
   const handleDeleteFields = (index) => {

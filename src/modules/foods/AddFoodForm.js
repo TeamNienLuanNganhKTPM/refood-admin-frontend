@@ -3,7 +3,7 @@
 import FormGroup from "components/common/FormGroup";
 import { Label } from "components/label";
 import { Input, Textarea } from "components/input";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import DropdownTypes from "modules/typesfood/DropdownTypes";
 import MutilInputForm from "./MutilInputForm";
@@ -13,9 +13,12 @@ import MutilFileUpload from "./MutilFileUpload";
 import { useDispatch } from "react-redux";
 import { addFood } from "store/foods/slice";
 import instance from "api";
+import axios from "axios";
+import { addFoodAdminApi } from "api/foods";
 
 const AddFoodForm = () => {
   const [priceRation, setPriceRation] = useState([]);
+  console.log("AddFoodForm ~ priceRation", priceRation);
   const [images, setImages] = useState([]);
   const [types, setTypes] = useState({});
   const dispatch = useDispatch();
@@ -23,6 +26,7 @@ const AddFoodForm = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -34,23 +38,40 @@ const AddFoodForm = () => {
     setImages({ foodimage: values });
   };
 
+  useEffect(() => {
+    setValue("foodpriceration", priceRation);
+    setValue("foodtype", types);
+
+    setValue("foodimage", images);
+  }, [images, priceRation, types, setValue]);
+
   const handleAddFoodForm = async (values) => {
+    console.log("handleAddFoodForm ~ values", values);
+
+    // dispatch(addFood(values));
     let formData = new FormData();
-    console.log("handleAddFoodForm ~ formData", formData);
     formData.append("foodname", values.foodname);
     formData.append("fooddescription", values.fooddescription);
-    formData.append("foodtype", types.foodtype);
+    formData.append("foodtype", types);
     for (let i = 0; i < priceRation.length; i++) {
       formData.append("foodpriceration", priceRation[i]);
     }
     for (let j = 0; j < images.length; j++) {
       formData.append("foodimage", images[j]);
     }
-    // instance
-    //   .post("/admin/management/food/food-add", { formData })
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-    // dispatch(addFood(formData));
+
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + " - " + pair[1]);
+    }
+
+    try {
+      const response = await addFoodAdminApi(formData);
+      if (response.status === 200) {
+        console.log("success");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

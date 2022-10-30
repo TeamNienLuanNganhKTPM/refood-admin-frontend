@@ -36,10 +36,10 @@ function* handleDeleteFood({ payload }) {
   }
 }
 
-function* handleAddFood({ payload }) {
-  console.log("function*handleAddFood ~ payload", payload);
+function* handleAddFood(form) {
+  console.log("function*handleAddFood ~ payload", form);
   try {
-    const response = yield call(addFoodAdminApi, payload);
+    const response = yield call(addFoodAdminApi, form);
     console.log("function*handleAddFood ~ response", response);
   } catch (error) {
     const { message } = error.response.data;

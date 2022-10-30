@@ -23,6 +23,7 @@ export const addFoodAdminApi = async (data) => {
   return await instance.request({
     method: "POST",
     data: data,
+    headers: { "Content-Type": "multipart/form-data" },
     url: `/admin/management/food/food-add`,
   });
 };

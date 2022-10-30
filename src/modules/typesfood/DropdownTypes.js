@@ -28,7 +28,7 @@ const DropdownTypes = ({ setTypes }) => {
   const { foodtypes } = useSelector((state) => state.foodTypes);
 
   useEffect(() => {
-    setTypes({ foodtype: selectTypesId });
+    setTypes(selectTypesId);
   }, [selectTypesId, setTypes]);
   return (
     <>

@@ -19,7 +19,7 @@ const foodSlice = createSlice({
       ...state,
       ...payload,
     }),
-    addFood: (state) => {
+    addFood: (state, action) => {
       return {
         ...state,
       };
