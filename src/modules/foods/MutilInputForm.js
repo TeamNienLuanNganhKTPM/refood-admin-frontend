@@ -6,8 +6,14 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const MutilInputForm = ({ setPriceRation }) => {
-  const [inputField, setInputField] = useState([{ price: 0, ration: 0 }]);
+const MutilInputForm = ({
+  setPriceRation,
+  priceration,
+  setSelectDeleteRation,
+}) => {
+  const [inputField, setInputField] = useState([
+    { FoodPrice: 0, FoodRation: 0 },
+  ]);
 
   const handleChangeInput = (e, index) => {
     const values = [...inputField];
@@ -16,18 +22,27 @@ const MutilInputForm = ({ setPriceRation }) => {
   };
 
   const handleAddFields = () => {
-    setInputField([...inputField, { price: 0, ration: 0 }]);
+    setInputField([...inputField, { FoodPrice: 0, FoodRation: 0 }]);
   };
 
-  const handleDeleteFields = (index) => {
+  const handleDeleteFields = (index, item) => {
+    console.log("handleDeleteFields ~ item", item);
     const values = [...inputField];
     values.splice(index, 1);
     setInputField(values);
+    setSelectDeleteRation((prevState) => [...prevState, item?.FoodDetailID]);
   };
+
+  useEffect(() => {
+    if (priceration.length > 0) {
+      setInputField(priceration);
+    }
+  }, [priceration, priceration.length]);
 
   useEffect(() => {
     setPriceRation(inputField);
   }, [inputField, setPriceRation]);
+
   return (
     <>
       <div id="fpr-list">
@@ -40,21 +55,21 @@ const MutilInputForm = ({ setPriceRation }) => {
               <FormGroup>
                 <Label htmlFor="price">Mức giá</Label>
                 <input
-                  name="price"
+                  name="FoodPrice"
                   placeholder="Nhập tên món ăn"
                   className="w-full px-6 py-4 text-sm font-medium border rounded-xl placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-grayf3 focus:border-primary"
                   onChange={(e) => handleChangeInput(e, index)}
-                  value={inputField.price}
+                  value={item.FoodPrice}
                 ></input>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="ration">Khẩu phần</Label>
                 <input
-                  name="ration"
+                  name="FoodRation"
                   placeholder="Nhập khẩu phần"
                   className="w-full px-6 py-4 text-sm font-medium border rounded-xl placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-grayf3 focus:border-primary"
                   onChange={(e) => handleChangeInput(e, index)}
-                  value={inputField.ration}
+                  value={item.FoodRation}
                 ></input>
               </FormGroup>
             </div>
@@ -63,7 +78,7 @@ const MutilInputForm = ({ setPriceRation }) => {
               {index > 0 && (
                 <div
                   className="px-2 py-2 text-white rounded cursor-pointer bg-error"
-                  onClick={() => handleDeleteFields(index)}
+                  onClick={() => handleDeleteFields(index, item)}
                 >
                   <span>
                     <svg
@@ -112,4 +127,4 @@ const MutilInputForm = ({ setPriceRation }) => {
   );
 };
 
-export default MutilInputForm;
+export default React.memo(MutilInputForm);

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFoodTypes } from "store/foodtypes/slice";
 import { useState } from "react";
 
-const DropdownTypes = ({ setTypes }) => {
+const DropdownTypes = ({ setTypes, types }) => {
   const [selectTypes, setSelectTypes] = useState("");
   const [selectTypesId, setSelectTypesId] = useState("");
   const dispatch = useDispatch();
@@ -26,6 +26,18 @@ const DropdownTypes = ({ setTypes }) => {
     fetchAllFoodTypes();
   }, [dispatch]);
   const { foodtypes } = useSelector((state) => state.foodTypes);
+
+  useEffect(() => {
+    if (types && foodtypes) {
+      const values = [...foodtypes];
+      for (let i = 0; i < values.length; i++) {
+        if (values[i].FoodTypeId === types) {
+          setSelectTypes(values[i].FoodTypeName);
+          break;
+        }
+      }
+    }
+  }, [foodtypes, types]);
 
   useEffect(() => {
     setTypes(selectTypesId);

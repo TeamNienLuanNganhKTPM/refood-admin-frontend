@@ -1,8 +1,9 @@
 /** @format */
 
+import { Button } from "components/button";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import AddFoodForm from "./AddFoodForm";
+import FoodForm from "./FoodForm";
 
 const AddFood = () => {
   const navigate = useNavigate();
@@ -36,7 +37,17 @@ const AddFood = () => {
         </h3>
       </div>
       <div className="flex justify-center pt-8">
-        <AddFoodForm></AddFoodForm>
+        <FoodForm>
+          <div className="flex justify-end pb-4 mt-10 border-b border-b-line">
+            <Button
+              type="submit"
+              kind="primary"
+              className="rounded hover:opacity-90"
+            >
+              Thêm món ăn
+            </Button>
+          </div>
+        </FoodForm>
       </div>
     </>
   );

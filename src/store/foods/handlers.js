@@ -1,9 +1,17 @@
 /** @format */
 
-import { addFoodAdminApi, deleteFoodApi, getAllFoodsApi } from "api/foods";
+import {
+  addFoodAdminApi,
+  deleteFoodApi,
+  getAllFoodsApi,
+  getFoodDetailApi,
+  updateFoodAdminApi,
+} from "api/foods";
+import { foodsPage } from "constants/constants";
+import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import Swal from "sweetalert2";
-import { getAllFoods, updateAllFoods } from "./slice";
+import { checkState, updateAllFoods, updateFoodDetail } from "./slice";
 
 function* handleGetAllFoods({ payload }) {
   try {
@@ -28,7 +36,9 @@ function* handleDeleteFood({ payload }) {
         showConfirmButton: false,
         timer: 2500,
       });
-      yield put(getAllFoods());
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
     }
   } catch (error) {
     const { message } = error.response.data;
@@ -36,15 +46,70 @@ function* handleDeleteFood({ payload }) {
   }
 }
 
-function* handleAddFood(form) {
-  console.log("function*handleAddFood ~ payload", form);
+function* handleAddFood({ payload }) {
   try {
-    const response = yield call(addFoodAdminApi, form);
-    console.log("function*handleAddFood ~ response", response);
+    const response = yield call(addFoodAdminApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+      yield put(checkState(response.data.success));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    toast.error(message, {
+      position: "top-right",
+    });
+  }
+}
+
+function* handleGetFoodDetail({ payload }) {
+  try {
+    const response = yield call(getFoodDetailApi, payload);
+    if (response.status === 200) {
+      yield put(updateFoodDetail(response.data.food_info));
+    }
   } catch (error) {
     const { message } = error.response.data;
     console.log(message);
   }
 }
 
-export { handleGetAllFoods, handleDeleteFood, handleAddFood };
+function* handleUpdateFoodDetail({ payload }) {
+  try {
+    const response = yield call(updateFoodAdminApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+      yield put(checkState(response.data.success));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    toast.error(message, {
+      position: "top-right",
+    });
+  }
+}
+
+export {
+  handleGetAllFoods,
+  handleDeleteFood,
+  handleAddFood,
+  handleGetFoodDetail,
+  handleUpdateFoodDetail,
+};

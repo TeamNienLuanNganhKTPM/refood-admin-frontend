@@ -1,18 +1,16 @@
 /** @format */
 
 import Price from "components/common/Price";
-import ModalForm from "components/modal/ModalForm";
-import useModal from "hooks/useModal";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { deleteFood } from "store/foods/slice";
 import Swal from "sweetalert2";
 import formatPrice from "utils/formatPrice";
-import UpdateFood from "./UpdateFood";
 
 const ItemFoods = ({ item }) => {
-  const { modalIsOpen, openModal, closeModal } = useModal();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleDeleteFood = (id) => {
     console.log("handleDeleteFood ~ id", id);
@@ -33,6 +31,10 @@ const ItemFoods = ({ item }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleClickUpdateFood = (slug) => {
+    navigate(`/product/update/${slug}`);
   };
   return (
     <tr>
@@ -88,7 +90,7 @@ const ItemFoods = ({ item }) => {
         </Price>
       </td>
       <td className="flex items-center justify-start gap-x-4">
-        <span onClick={openModal}>
+        <span onClick={() => handleClickUpdateFood(item.FoodSlug)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -104,9 +106,6 @@ const ItemFoods = ({ item }) => {
             />
           </svg>
         </span>
-        <ModalForm modalIsOpen={modalIsOpen} closeModal={closeModal}>
-          <UpdateFood closeModal={closeModal} item={item}></UpdateFood>
-        </ModalForm>
         <span onClick={() => handleDeleteFood(item.FoodId)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

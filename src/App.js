@@ -13,6 +13,7 @@ const InvoicePage = lazy(() => import("./pages/InvoicePage"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const AddFood = lazy(() => import("./modules/foods/AddFood"));
+const UpdateFood = lazy(() => import("./modules/foods/UpdateFood"));
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
           <Route path="/" element={<DashboardPage></DashboardPage>}></Route>
           <Route path="/product" element={<ProductPage></ProductPage>}></Route>
           <Route path="product/add" element={<AddFood></AddFood>}></Route>
+          <Route
+            path="product/update/:slug"
+            element={<UpdateFood></UpdateFood>}
+          ></Route>
           <Route
             path="/category"
             element={<CategoryPage></CategoryPage>}

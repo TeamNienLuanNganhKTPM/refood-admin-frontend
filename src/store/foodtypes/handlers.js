@@ -34,6 +34,9 @@ function* handleDeleteFoodType({ payload }) {
         showConfirmButton: false,
         timer: 2500,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
       yield put(getAllFoodTypes());
     }
   } catch (error) {
@@ -53,6 +56,9 @@ function* handleAddFoodType({ payload }) {
         showConfirmButton: false,
         timer: 2500,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
       yield put(getAllFoodTypes());
     }
   } catch (error) {
@@ -74,6 +80,9 @@ function* handleUpdateFoodType({ payload }) {
         showConfirmButton: false,
         timer: 2500,
       });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
       yield put(getAllFoodTypes());
     }
   } catch (error) {
