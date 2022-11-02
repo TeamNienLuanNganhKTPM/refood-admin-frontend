@@ -1,5 +1,10 @@
 /** @format */
 
+import React from "react";
+import ErrorComponent from "components/common/ErrorComponent";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { authLogOut } from "store/auth/slice";
 import {
   IconCategory,
   IconDarkmode,
@@ -10,10 +15,8 @@ import {
   IconProfile,
   IconWithdraw,
 } from "components/icons";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
-import { authLogOut } from "store/auth/slice";
+import { withErrorBoundary } from "react-error-boundary";
+
 const sidebarLinks = [
   {
     icon: <IconDashboard></IconDashboard>,
@@ -100,4 +103,6 @@ const DashboardSidebar = () => {
   );
 };
 
-export default DashboardSidebar;
+export default withErrorBoundary(DashboardSidebar, {
+  FallbackComponent: ErrorComponent,
+});

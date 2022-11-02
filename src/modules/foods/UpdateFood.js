@@ -1,12 +1,14 @@
 /** @format */
 
-import { Button } from "components/button";
 import React from "react";
+import FoodFormUpdate from "./FoodFormUpdate";
+import ErrorComponent from "components/common/ErrorComponent";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import { getFoodDetail } from "store/foods/slice";
-import FoodFormUpdate from "./FoodFormUpdate";
+import { Button } from "components/button";
+import { withErrorBoundary } from "react-error-boundary";
 
 const UpdateFood = () => {
   const navigate = useNavigate();
@@ -68,4 +70,6 @@ const UpdateFood = () => {
   );
 };
 
-export default UpdateFood;
+export default withErrorBoundary(UpdateFood, {
+  FallbackComponent: ErrorComponent,
+});

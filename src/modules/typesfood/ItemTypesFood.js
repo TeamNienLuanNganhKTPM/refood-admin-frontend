@@ -1,12 +1,15 @@
 /** @format */
 
-import ModalForm from "components/modal/ModalForm";
 import useModal from "hooks/useModal";
+import UpdateTypesFood from "./UpdateTypesFood";
+import Swal from "sweetalert2";
 import React from "react";
+import PropTypes from "prop-types";
+import ModalForm from "components/modal/ModalForm";
+import ErrorComponent from "components/common/ErrorComponent";
+import { withErrorBoundary } from "react-error-boundary";
 import { useDispatch } from "react-redux";
 import { deleteFoodType } from "store/foodtypes/slice";
-import Swal from "sweetalert2";
-import UpdateTypesFood from "./UpdateTypesFood";
 
 const ItemTypesFood = ({ types }) => {
   const { modalIsOpen, openModal, closeModal } = useModal();
@@ -81,4 +84,10 @@ const ItemTypesFood = ({ types }) => {
   );
 };
 
-export default ItemTypesFood;
+ItemTypesFood.propTypes = {
+  types: PropTypes.object,
+};
+
+export default withErrorBoundary(ItemTypesFood, {
+  FallbackComponent: ErrorComponent,
+});

@@ -1,11 +1,14 @@
 /** @format */
 
-import Price from "components/common/Price";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import Price from "components/common/Price";
+import orderState from "utils/orderState";
 import formatToDate from "utils/formatDate";
 import formatPrice from "utils/formatPrice";
-import orderState from "utils/orderState";
+import ErrorComponent from "components/common/ErrorComponent";
+import { useNavigate } from "react-router-dom";
+import { withErrorBoundary } from "react-error-boundary";
 
 const ItemOrder = ({ item }) => {
   const navigate = useNavigate();
@@ -18,15 +21,10 @@ const ItemOrder = ({ item }) => {
         <span>{formatToDate(item.OrderDate)}</span>
       </td>
       <td>
-        <span className="text-secondary">{item.OrderPaymentMethod}</span>
+        <span className=" text-secondary">{item.OrderPaymentMethod}</span>
       </td>
       <td>
-        <span>
-          {item.OrderNote ? item.OrderNote.split(0, 5) + "..." : "Không có"}
-        </span>
-      </td>
-      <td>
-        <div className="px-2 py-1 rounded-sm text-primary bg-primary bg-opacity-10">
+        <div className="px-2 py-1 font-medium text-center rounded text-primary bg-primary bg-opacity-10">
           <span>{orderState(item.OrderState)}</span>
         </div>
       </td>
@@ -52,4 +50,10 @@ const ItemOrder = ({ item }) => {
   );
 };
 
-export default ItemOrder;
+ItemOrder.propTypes = {
+  item: PropTypes.object,
+};
+
+export default withErrorBoundary(ItemOrder, {
+  FallbackComponent: ErrorComponent,
+});

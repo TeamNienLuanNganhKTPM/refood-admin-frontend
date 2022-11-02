@@ -3,6 +3,7 @@
 import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
+const UpdateFood = lazy(() => import("./modules/foods/UpdateFood"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const OrderPage = lazy(() => import("./pages/OrderPage"));
@@ -13,7 +14,6 @@ const InvoicePage = lazy(() => import("./pages/InvoicePage"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const AddFood = lazy(() => import("./modules/foods/AddFood"));
-const UpdateFood = lazy(() => import("./modules/foods/UpdateFood"));
 
 function App() {
   return (

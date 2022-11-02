@@ -1,6 +1,5 @@
 /** @format */
 
-import Swal from "sweetalert2";
 import ReactPaginate from "react-paginate";
 import React, { useState } from "react";
 import ListFoods from "modules/foods/ListFoods";
@@ -42,21 +41,17 @@ const ProductPage = () => {
 
   const handlePageClick = (event) => {
     setNextPage(event.selected + 1);
-    Swal.fire({
-      title: "Chờ trong giây lát!",
-      timer: 2000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    }).then((result) => {
-      dispatch(
-        getAllFoods({
-          pageCur: event.selected + 1,
-          numOnPage: foodsPage.pageOnNum,
-        })
-      );
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
     });
+    dispatch(
+      getAllFoods({
+        pageCur: event.selected + 1,
+        numOnPage: foodsPage.pageOnNum,
+      })
+    );
   };
 
   const handleClickAddFood = () => {

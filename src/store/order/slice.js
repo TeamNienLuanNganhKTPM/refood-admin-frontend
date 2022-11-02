@@ -8,7 +8,7 @@ const orderSlice = createSlice({
   reducers: {
     getAllOrders: (state, { payload }) => ({
       ...state,
-      ...payload,
+      // ...payload,
     }),
     updateAllOrders: (state, { payload }) => ({
       ...state,
@@ -17,11 +17,15 @@ const orderSlice = createSlice({
     }),
     getOrderDetail: (state, { payload }) => ({
       ...state,
-      ...payload,
+      // ...payload,
     }),
     updateOrderDetail: (state, { payload }) => ({
       ...state,
       orderDetail: payload.order_detail,
+    }),
+    updateOrder: (state, { payload }) => ({
+      ...state,
+      // ...payload,
     }),
   },
 });
@@ -31,5 +35,6 @@ export const {
   updateAllOrders,
   getOrderDetail,
   updateOrderDetail,
+  updateOrder,
 } = orderSlice.actions;
 export default orderSlice.reducer;

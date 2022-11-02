@@ -6,14 +6,15 @@ import PropTypes from "prop-types";
 import MutilInputForm from "./MutilInputForm";
 import MutilFileUpload from "./MutilFileUpload";
 import FormGroup from "components/common/FormGroup";
+import ErrorComponent from "components/common/ErrorComponent";
 import DropdownTypes from "modules/typesfood/DropdownTypes";
+import { withErrorBoundary } from "react-error-boundary";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updateFood } from "store/foods/slice";
 import { Label } from "components/label";
 import { Input, Textarea } from "components/input";
-import { updateFood } from "store/foods/slice";
 
 const FoodFormUpdate = ({ children, data }) => {
   const [priceRation, setPriceRation] = useState([]);
@@ -22,9 +23,7 @@ const FoodFormUpdate = ({ children, data }) => {
   const [img, setImg] = useState([]);
   const [selectDeleteImg, setSelectDeleteImg] = useState([]);
   const [selectDeleteRation, setSelectDeleteRation] = useState([]);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { success } = useSelector((state) => state.foods);
 
   const {
     control,
@@ -56,13 +55,18 @@ const FoodFormUpdate = ({ children, data }) => {
       formData.append(
         "foodpriceration",
         JSON.stringify({
-          price: priceRation[i].FoodPrice,
-          ration: priceRation[i].FoodRation,
+          price: Number(priceRation[i].FoodPrice),
+          ration: Number(priceRation[i].FoodRation),
         })
       );
     }
-    for (let j = 0; j < images.length; j++) {
-      formData.append("foodimage", images[j]);
+
+    if (images.length === 0) {
+      formData.append("foodimage", []);
+    } else {
+      for (let j = 0; j < images.length; j++) {
+        formData.append("foodimage", images[j]);
+      }
     }
     for (let n = 0; n < selectDeleteImg.length; n++) {
       formData.append("foodimagedeleted", JSON.stringify(selectDeleteImg[n]));
@@ -88,12 +92,6 @@ const FoodFormUpdate = ({ children, data }) => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (success) {
-      navigate("/product");
-    }
-  }, [success, navigate]);
 
   return (
     <>
@@ -151,6 +149,9 @@ const FoodFormUpdate = ({ children, data }) => {
 
 FoodFormUpdate.propTypes = {
   children: PropTypes.any,
+  data: PropTypes.object,
 };
 
-export default FoodFormUpdate;
+export default withErrorBoundary(FoodFormUpdate, {
+  FallbackComponent: ErrorComponent,
+});

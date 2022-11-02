@@ -2,6 +2,8 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import ErrorComponent from "components/common/ErrorComponent";
+import { withErrorBoundary } from "react-error-boundary";
 
 const LayoutDashboardTable = ({ title, children }) => {
   return (
@@ -19,4 +21,6 @@ LayoutDashboardTable.propTypes = {
   children: PropTypes.any,
 };
 
-export default LayoutDashboardTable;
+export default withErrorBoundary(LayoutDashboardTable, {
+  FallbackComponent: ErrorComponent,
+});

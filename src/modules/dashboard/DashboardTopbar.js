@@ -1,8 +1,9 @@
 /** @format */
 
+import ErrorComponent from "components/common/ErrorComponent";
 import React from "react";
+import { withErrorBoundary } from "react-error-boundary";
 import { Link } from "react-router-dom";
-import DashboardSearch from "./DashboardSearch";
 
 const DashboardTopbar = () => {
   return (
@@ -48,4 +49,6 @@ const DashboardTopbar = () => {
   );
 };
 
-export default DashboardTopbar;
+export default withErrorBoundary(DashboardTopbar, {
+  FallbackComponent: ErrorComponent,
+});

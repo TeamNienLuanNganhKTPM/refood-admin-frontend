@@ -1,6 +1,9 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import ErrorComponent from "components/common/ErrorComponent";
+import { withErrorBoundary } from "react-error-boundary";
 const queryString = require("query-string");
 
 const MutilFileUpload = ({ name = "", setImages, img, setSelectDeleteImg }) => {
@@ -15,10 +18,10 @@ const MutilFileUpload = ({ name = "", setImages, img, setSelectDeleteImg }) => {
   };
 
   useEffect(() => {
-    if (img.length > 0) {
+    if (img?.length > 0) {
       setSelectImg(img);
     }
-  }, [img, img.length]);
+  }, [img, img?.length]);
 
   useEffect(() => {
     setImages(inputFile);
@@ -130,4 +133,14 @@ const MutilFileUpload = ({ name = "", setImages, img, setSelectDeleteImg }) => {
     </>
   );
 };
-export default React.memo(MutilFileUpload);
+
+MutilFileUpload.propTypes = {
+  name: PropTypes.string,
+  img: PropTypes.array,
+  setImages: PropTypes.func,
+  setSelectDeleteImg: PropTypes.func,
+};
+
+export default withErrorBoundary(React.memo(MutilFileUpload), {
+  FallbackComponent: ErrorComponent,
+});

@@ -1,18 +1,17 @@
 /** @format */
 
-import { Button } from "components/button";
-import ModalForm from "components/modal/ModalForm";
-import { typesFood } from "constants/constants";
 import useModal from "hooks/useModal";
+import ReactPaginate from "react-paginate";
+import React, { useState } from "react";
+import ModalForm from "components/modal/ModalForm";
+import ListTypesFood from "modules/typesfood/ListTypesFood";
 import LayoutDashboardTable from "layout/LayoutDashboardTable";
 import AddTypesFood from "modules/typesfood/AddTypesFood";
-import ListTypesFood from "modules/typesfood/ListTypesFood";
-import React, { useState } from "react";
 import { useEffect } from "react";
-import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
+import { typesFood } from "constants/constants";
 import { getAllFoodTypes } from "store/foodtypes/slice";
-import Swal from "sweetalert2";
+import { Button } from "components/button";
 
 const CategoryPage = () => {
   const [nextPage, setNextPage] = useState(1);
@@ -46,20 +45,17 @@ const CategoryPage = () => {
 
   const handlePageClick = (event) => {
     setNextPage(event.selected + 1);
-    Swal.fire({
-      timer: 2000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    }).then((result) => {
-      dispatch(
-        getAllFoodTypes({
-          pageCur: event.selected + 1,
-          numOnPage: typesFood.pageOnNum,
-        })
-      );
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
     });
+    dispatch(
+      getAllFoodTypes({
+        pageCur: event.selected + 1,
+        numOnPage: typesFood.pageOnNum,
+      })
+    );
   };
 
   const handleOpenAdd = () => {

@@ -1,16 +1,19 @@
 /** @format */
 
-import { Button } from "components/button";
-import FormGroup from "components/common/FormGroup";
-import { Input, Textarea } from "components/input";
-import { Label } from "components/label";
 import React from "react";
-import { useForm } from "react-hook-form";
+import PropTypes from "prop-types";
+import FormGroup from "components/common/FormGroup";
+import ErrorComponent from "components/common/ErrorComponent";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { withErrorBoundary } from "react-error-boundary";
+import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateTypeFood } from "store/foodtypes/slice";
+import { Label } from "components/label";
+import { Input, Textarea } from "components/input";
+import { Button } from "components/button";
 
 const schema = yup.object({
   foodtypename: yup.string().required("Vui lòng nhập tên loại món ăn"),
@@ -110,5 +113,11 @@ const UpdateTypesFood = ({ closeModal, types }) => {
     </div>
   );
 };
+UpdateTypesFood.propTypes = {
+  closeModal: PropTypes.func,
+  types: PropTypes.object,
+};
 
-export default UpdateTypesFood;
+export default withErrorBoundary(UpdateTypesFood, {
+  FallbackComponent: ErrorComponent,
+});

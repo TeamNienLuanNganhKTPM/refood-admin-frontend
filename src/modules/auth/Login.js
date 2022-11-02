@@ -5,15 +5,17 @@ import React, { useEffect } from "react";
 import LayoutAuthentication from "layout/LayoutAuthentication";
 import IconEyeToggle from "components/icons/IconEyeToggle";
 import FormGroup from "components/common/FormGroup";
+import ErrorComponent from "components/common/ErrorComponent";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Label } from "components/label";
 import { Input } from "components/input";
 import { Button } from "components/button";
-import { useDispatch, useSelector } from "react-redux";
 import { authLogin } from "store/auth/slice";
+import { withErrorBoundary } from "react-error-boundary";
 
 const schema = yup.object({
   phonenumber: yup.string().required("Vui lòng nhập số điện thoại"),
@@ -96,4 +98,6 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withErrorBoundary(Login, {
+  FallbackComponent: ErrorComponent,
+});

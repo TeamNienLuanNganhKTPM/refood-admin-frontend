@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Label } from "components/label";
 import { Input, Textarea } from "components/input";
 import { addFoods } from "store/foods/slice";
+import { withErrorBoundary } from "react-error-boundary";
+import ErrorComponent from "components/common/ErrorComponent";
 
 const FoodForm = ({ children }) => {
   const [priceRation, setPriceRation] = useState([]);
@@ -48,8 +50,8 @@ const FoodForm = ({ children }) => {
       formData.append(
         "foodpriceration",
         JSON.stringify({
-          price: priceRation[i].FoodPrice,
-          ration: priceRation[i].FoodRation,
+          price: Number(priceRation[i].FoodPrice),
+          ration: Number(priceRation[i].FoodRation),
         })
       );
     }
@@ -132,4 +134,6 @@ FoodForm.propTypes = {
   children: PropTypes.any,
 };
 
-export default FoodForm;
+export default withErrorBoundary(FoodForm, {
+  FallbackComponent: ErrorComponent,
+});

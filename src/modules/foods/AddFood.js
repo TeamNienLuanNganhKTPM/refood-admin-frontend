@@ -1,9 +1,11 @@
 /** @format */
 
-import { Button } from "components/button";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import FoodForm from "./FoodForm";
+import ErrorComponent from "components/common/ErrorComponent";
+import { withErrorBoundary } from "react-error-boundary";
+import { useNavigate } from "react-router-dom";
+import { Button } from "components/button";
 
 const AddFood = () => {
   const navigate = useNavigate();
@@ -53,4 +55,6 @@ const AddFood = () => {
   );
 };
 
-export default AddFood;
+export default withErrorBoundary(AddFood, {
+  FallbackComponent: ErrorComponent,
+});

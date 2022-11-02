@@ -1,13 +1,21 @@
 /** @format */
 
+import React, { useEffect } from "react";
 import Overlay from "components/common/Overlay";
-import DashboardSidebar from "modules/dashboard/DashboardSidebar";
+import ErrorComponent from "components/common/ErrorComponent";
 import DashboardTopbar from "modules/dashboard/DashboardTopbar";
-
-import React from "react";
-import { Outlet } from "react-router-dom";
+import DashboardSidebar from "modules/dashboard/DashboardSidebar";
+import { withErrorBoundary } from "react-error-boundary";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const LayoutDashboard = () => {
+  const token = window.localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate, token]);
   return (
     <div className="min-h-screen p-10 bg-lite">
       <Overlay></Overlay>
@@ -22,4 +30,6 @@ const LayoutDashboard = () => {
   );
 };
 
-export default LayoutDashboard;
+export default withErrorBoundary(LayoutDashboard, {
+  FallbackComponent: ErrorComponent,
+});

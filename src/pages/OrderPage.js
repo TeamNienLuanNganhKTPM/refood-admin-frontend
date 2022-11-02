@@ -1,13 +1,11 @@
 /** @format */
-
-import { ordersPage } from "constants/constants";
-import LayoutDashboardTable from "layout/LayoutDashboardTable";
-import ListOrders from "modules/order/ListOrders";
-import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import React, { useEffect, useState } from "react";
+import ListOrders from "modules/order/ListOrders";
+import LayoutDashboardTable from "layout/LayoutDashboardTable";
 import { useDispatch, useSelector } from "react-redux";
+import { ordersPage } from "constants/constants";
 import { getAllOrders } from "store/order/slice";
-import Swal from "sweetalert2";
 
 const OrderPage = () => {
   const [nextPage, setNextPage] = useState(1);
@@ -61,7 +59,6 @@ const OrderPage = () => {
             <th>ID</th>
             <th>Ngày đặt</th>
             <th>Phương thức thanh toán</th>
-            <th>Ghi chú</th>
             <th>Trạng thái</th>
             <th>Tổng tiền</th>
             <th>Hành động</th>

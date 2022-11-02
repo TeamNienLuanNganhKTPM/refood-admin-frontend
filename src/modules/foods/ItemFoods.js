@@ -1,12 +1,14 @@
 /** @format */
-
-import Price from "components/common/Price";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { deleteFood } from "store/foods/slice";
 import Swal from "sweetalert2";
+import React from "react";
+import PropTypes from "prop-types";
+import Price from "components/common/Price";
 import formatPrice from "utils/formatPrice";
+import ErrorComponent from "components/common/ErrorComponent";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteFood } from "store/foods/slice";
+import { withErrorBoundary } from "react-error-boundary";
 
 const ItemFoods = ({ item }) => {
   const dispatch = useDispatch();
@@ -51,7 +53,7 @@ const ItemFoods = ({ item }) => {
         <h3 className="text-text1">{item.FoodName}</h3>
       </td>
       <td>
-        <div className="inline px-2 py-1 border rounded-sm border-primary bg-primary bg-opacity-10 text-primary">
+        <div className="w-full px-2 py-1 font-medium text-center rounded bg-primary bg-opacity-10 text-primary">
           <span>{item.FoodTypeName}</span>
         </div>
       </td>
@@ -127,4 +129,10 @@ const ItemFoods = ({ item }) => {
   );
 };
 
-export default ItemFoods;
+ItemFoods.propTypes = {
+  item: PropTypes.object,
+};
+
+export default withErrorBoundary(ItemFoods, {
+  FallbackComponent: ErrorComponent,
+});

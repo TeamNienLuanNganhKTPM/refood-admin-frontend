@@ -1,7 +1,10 @@
 /** @format */
 
+import ErrorComponent from "components/common/ErrorComponent";
 import React from "react";
+import { withErrorBoundary } from "react-error-boundary";
 import ItemTypesFood from "./ItemTypesFood";
+import PropTypes from "prop-types";
 
 const ListTypesFood = ({ data }) => {
   return (
@@ -14,4 +17,10 @@ const ListTypesFood = ({ data }) => {
   );
 };
 
-export default ListTypesFood;
+ListTypesFood.propTypes = {
+  data: PropTypes.array,
+};
+
+export default withErrorBoundary(ListTypesFood, {
+  FallbackComponent: ErrorComponent,
+});

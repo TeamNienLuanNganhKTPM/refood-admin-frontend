@@ -1,6 +1,8 @@
 /** @format */
 
+import ErrorComponent from "components/common/ErrorComponent";
 import React from "react";
+import { withErrorBoundary } from "react-error-boundary";
 
 const DashboardSearch = () => {
   return (
@@ -34,4 +36,6 @@ const DashboardSearch = () => {
   );
 };
 
-export default DashboardSearch;
+export default withErrorBoundary(DashboardSearch, {
+  FallbackComponent: ErrorComponent,
+});

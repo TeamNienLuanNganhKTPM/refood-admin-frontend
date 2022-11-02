@@ -1,18 +1,26 @@
 /** @format */
 
-import Price from "components/common/Price";
+import Swal from "sweetalert2";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { getOrderDetail } from "store/order/slice";
+import Price from "components/common/Price";
+import orderState from "utils/orderState";
+import OrderDetailItem from "./OrderDetailItem";
+import nextState from "utils/nextState";
 import formatToDate from "utils/formatDate";
 import formatPrice from "utils/formatPrice";
-import OrderDetailItem from "./OrderDetailItem";
+import { useState } from "react";
+import ErrorComponent from "components/common/ErrorComponent";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrderDetail, updateOrder } from "store/order/slice";
+import { Button } from "components/button";
+import { withErrorBoundary } from "react-error-boundary";
 
 const OrderDetail = () => {
   const param = useParams();
   const id = param.slug;
   const navigate = useNavigate();
+  const [nextOrder, setNextOrder] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,7 +31,32 @@ const OrderDetail = () => {
   }, [dispatch, id]);
 
   const { orderDetail } = useSelector((state) => state.orders);
+
+  useEffect(() => {
+    if (orderDetail) {
+      setNextOrder(nextState(orderDetail?.OrderState));
+    }
+  }, [orderDetail]);
+
   const data = orderDetail?.OrderDetails ? orderDetail?.OrderDetails : [];
+
+  const handleConfirmOrder = () => {
+    try {
+      Swal.fire({
+        title: "Chờ trong giây lát!",
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      }).then((result) => {
+        dispatch(updateOrder({ orderid: id }));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="flex items-center justify-between py-2 border-b border-b-line">
@@ -58,7 +91,9 @@ const OrderDetail = () => {
             ID Đơn hàng: {orderDetail?.OrderID}
           </span>
           <span>|</span>
-          <span className="text-error">Đơn hàng đã giao</span>
+          <span className="text-error">
+            {orderState(orderDetail?.OrderState)}
+          </span>
         </div>
       </div>
       <div className="py-3 border-b border-b-line">
@@ -103,8 +138,21 @@ const OrderDetail = () => {
           </Price>
         </div>
       </div>
+      {orderDetail?.OrderState < 2 && (
+        <div className="flex justify-end mt-8">
+          <Button
+            kind="primary"
+            className="rounded"
+            onClick={handleConfirmOrder}
+          >
+            {nextOrder}
+          </Button>
+        </div>
+      )}
     </>
   );
 };
 
-export default OrderDetail;
+export default withErrorBoundary(OrderDetail, {
+  FallbackComponent: ErrorComponent,
+});

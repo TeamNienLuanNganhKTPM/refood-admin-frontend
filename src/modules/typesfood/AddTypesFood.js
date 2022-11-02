@@ -1,14 +1,17 @@
 /** @format */
 
-import FormGroup from "components/common/FormGroup";
-import { Label } from "components/label";
 import React from "react";
-import { useForm } from "react-hook-form";
+import PropTypes from "prop-types";
+import FormGroup from "components/common/FormGroup";
+import ErrorComponent from "components/common/ErrorComponent";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { withErrorBoundary } from "react-error-boundary";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { Label } from "components/label";
 import { Input, Textarea } from "components/input";
 import { Button } from "components/button";
-import { useDispatch } from "react-redux";
 import { addFoodType } from "store/foodtypes/slice";
 
 const schema = yup.object({
@@ -99,4 +102,10 @@ const AddTypesFood = ({ closeModal }) => {
   );
 };
 
-export default AddTypesFood;
+AddTypesFood.propTypes = {
+  closeModal: PropTypes.func,
+};
+
+export default withErrorBoundary(AddTypesFood, {
+  FallbackComponent: ErrorComponent,
+});

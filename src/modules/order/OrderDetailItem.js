@@ -3,6 +3,9 @@
 import Price from "components/common/Price";
 import React from "react";
 import formatPrice from "utils/formatPrice";
+import PropTypes from "prop-types";
+import ErrorComponent from "components/common/ErrorComponent";
+import { withErrorBoundary } from "react-error-boundary";
 
 const OrderDetailItem = ({ data }) => {
   return (
@@ -40,4 +43,10 @@ const OrderDetailItem = ({ data }) => {
   );
 };
 
-export default OrderDetailItem;
+OrderDetailItem.propTypes = {
+  data: PropTypes.array,
+};
+
+export default withErrorBoundary(OrderDetailItem, {
+  FallbackComponent: ErrorComponent,
+});
