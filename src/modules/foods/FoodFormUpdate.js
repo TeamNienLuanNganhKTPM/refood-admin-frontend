@@ -18,6 +18,7 @@ import { Input, Textarea } from "components/input";
 
 const FoodFormUpdate = ({ children, data }) => {
   const [priceRation, setPriceRation] = useState([]);
+  console.log("FoodFormUpdate ~ priceRation", priceRation);
   const [images, setImages] = useState([]);
   const [types, setTypes] = useState("");
   const [img, setImg] = useState([]);
@@ -55,6 +56,9 @@ const FoodFormUpdate = ({ children, data }) => {
       formData.append(
         "foodpriceration",
         JSON.stringify({
+          fooddetailid: priceRation[i]?.FoodDetailID
+            ? priceRation[i]?.FoodDetailID
+            : undefined,
           price: Number(priceRation[i].FoodPrice),
           ration: Number(priceRation[i].FoodRation),
         })
