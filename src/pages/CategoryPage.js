@@ -65,7 +65,11 @@ const CategoryPage = () => {
   return (
     <LayoutDashboardTable title="Danh sách loại món ăn">
       <div className="flex justify-end mb-8">
-        <Button kind="primary" className="w-[200px]" onClick={handleOpenAdd}>
+        <Button
+          kind="primary"
+          className="w-[200px] rounded"
+          onClick={handleOpenAdd}
+        >
           Thêm loại món ăn
         </Button>
         <ModalForm modalIsOpen={modalIsOpen} closeModal={closeModal}>

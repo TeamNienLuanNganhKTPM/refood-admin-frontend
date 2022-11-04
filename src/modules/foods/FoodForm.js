@@ -13,9 +13,10 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Label } from "components/label";
 import { Input, Textarea } from "components/input";
-import { addFoods } from "store/foods/slice";
+import { addFoods, getAllFoods } from "store/foods/slice";
 import { withErrorBoundary } from "react-error-boundary";
 import ErrorComponent from "components/common/ErrorComponent";
+import { foodsPage } from "constants/constants";
 
 const FoodForm = ({ children }) => {
   const [priceRation, setPriceRation] = useState([]);
@@ -77,12 +78,22 @@ const FoodForm = ({ children }) => {
   useEffect(() => {
     if (success) {
       navigate("/product");
+      dispatch(
+        getAllFoods({
+          pageCur: foodsPage.pageCurDefault,
+          numOnPage: foodsPage.pageOnNum,
+        })
+      );
     }
   }, [success, navigate]);
 
   return (
     <>
-      <form className="w-[900px]" onSubmit={handleSubmit(handleAddFoodForm)}>
+      <form
+        className="w-[900px]"
+        onSubmit={handleSubmit(handleAddFoodForm)}
+        autoComplete="off"
+      >
         <div className="grid grid-cols-2 gap-5 pr-[104px]">
           <FormGroup>
             <Label htmlFor="foodname">Tên món ăn</Label>

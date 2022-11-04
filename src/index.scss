@@ -13,20 +13,58 @@
   input {
     @apply outline-none;
   }
-  table {
-    @apply w-full max-w-full overflow-x-scroll;
+}
+
+table {
+  @apply w-full;
+  thead tr {
+    @apply bg-grayf3;
   }
-  th {
-    @apply bg-grayf3 p-4 rounded text-lg text-text2 text-left;
-  }
-  tbody td:first-child {
-    @apply left-0;
-  }
-  tr {
+  tbody tr {
     @apply border-b border-b-grayf3;
   }
-  td {
-    @apply p-4 text-left text-base text-text2;
+  td,
+  th {
+    @apply align-middle p-3 text-left text-sm whitespace-nowrap;
+  }
+  th {
+    @apply font-medium;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .table-admin {
+    tr {
+      display: grid;
+      grid-template-columns: 10% 30% 10% 15% 20% 15%;
+    }
+    th,
+    td {
+      display: grid;
+      align-items: center;
+    }
+  }
+}
+
+@media screen and (max-width: 1023.98px) {
+  .table-admin {
+    @apply border-separate;
+    border-spacing: 0;
+    td:first-child,
+    th:first-child {
+      @apply sticky top-0 z-10 left-0 border-r border-r-grayf3;
+      min-width: 150px;
+    }
+    td:first-child {
+      @apply bg-white;
+    }
+    th:first-child {
+      @apply bg-grayf3;
+    }
+    th,
+    td {
+      @apply border-b border-b-grayf3;
+    }
   }
 }
 

@@ -55,7 +55,7 @@ const MutilFileUpload = ({ name = "", setImages, img, setSelectDeleteImg }) => {
       />
       <label
         htmlFor="file"
-        className="text-white h-[54px] w-[200px] justify-center bg-secondary py-3 px-4 rounded-sm flex items-center "
+        className="text-white h-[54px] w-[200px] justify-center bg-secondary cursor-pointer py-3 px-4 rounded-sm flex items-center "
       >
         Chọn hình ảnh
       </label>

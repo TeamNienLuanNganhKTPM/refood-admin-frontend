@@ -27,6 +27,9 @@ const orderSlice = createSlice({
       ...state,
       // ...payload,
     }),
+    cancelOrder: (state, { payload }) => ({
+      ...state,
+    }),
   },
 });
 
@@ -36,5 +39,6 @@ export const {
   getOrderDetail,
   updateOrderDetail,
   updateOrder,
+  cancelOrder,
 } = orderSlice.actions;
 export default orderSlice.reducer;

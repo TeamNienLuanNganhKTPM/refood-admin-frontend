@@ -1,6 +1,7 @@
 /** @format */
 
 import {
+  cancelOrderAdminApi,
   getAllOrdersApi,
   getOrderDetailApi,
   updateOrderAdminApi,
@@ -57,4 +58,32 @@ function* handleUpdateOrder({ payload }) {
   }
 }
 
-export { handleGetAllOrders, handleGetOrderDetail, handleUpdateOrder };
+function* handleCancelOrder({ payload }) {
+  try {
+    const response = yield call(cancelOrderAdminApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    toast.error(message, {
+      position: "top-right",
+    });
+  }
+}
+
+export {
+  handleGetAllOrders,
+  handleGetOrderDetail,
+  handleUpdateOrder,
+  handleCancelOrder,
+};

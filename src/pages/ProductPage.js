@@ -69,7 +69,7 @@ const ProductPage = () => {
           Thêm món ăn
         </Button>
       </div>
-      <table>
+      <table className="table-admins">
         <thead>
           <tr>
             <th>Hình ảnh</th>

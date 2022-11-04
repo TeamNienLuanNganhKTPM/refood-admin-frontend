@@ -25,3 +25,12 @@ export const updateOrderAdminApi = async (data) => {
     url: `/admin/management/order/update-food-order`,
   });
 };
+
+export const cancelOrderAdminApi = async (data) => {
+  return await instance.request({
+    method: "PUT",
+    data: data,
+    headers: { "Content-Type": "multipart/form-data" },
+    url: `/admin/management/order/cancel-order`,
+  });
+};

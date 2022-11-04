@@ -12,7 +12,7 @@ import { useState } from "react";
 import ErrorComponent from "components/common/ErrorComponent";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetail, updateOrder } from "store/order/slice";
+import { cancelOrder, getOrderDetail, updateOrder } from "store/order/slice";
 import { Button } from "components/button";
 import { withErrorBoundary } from "react-error-boundary";
 
@@ -51,6 +51,23 @@ const OrderDetail = () => {
         },
       }).then((result) => {
         dispatch(updateOrder({ orderid: id }));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCancelOrder = () => {
+    try {
+      Swal.fire({
+        title: "Chờ trong giây lát!",
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      }).then((result) => {
+        dispatch(cancelOrder({ orderid: id }));
       });
     } catch (error) {
       console.log(error);
@@ -139,7 +156,16 @@ const OrderDetail = () => {
         </div>
       </div>
       {orderDetail?.OrderState < 2 && (
-        <div className="flex justify-end mt-8">
+        <div className="flex justify-end gap-3 mt-8">
+          {orderDetail?.OrderState === 0 && (
+            <Button
+              kind="secondary"
+              className="rounded w-[120px]"
+              onClick={handleCancelOrder}
+            >
+              Hủy
+            </Button>
+          )}
           <Button
             kind="primary"
             className="rounded"

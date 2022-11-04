@@ -18,7 +18,7 @@ const ListFoods = ({ data }) => {
 };
 
 ListFoods.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
 };
 
 export default withErrorBoundary(ListFoods, {

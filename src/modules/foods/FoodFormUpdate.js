@@ -11,14 +11,13 @@ import DropdownTypes from "modules/typesfood/DropdownTypes";
 import { withErrorBoundary } from "react-error-boundary";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateFood } from "store/foods/slice";
 import { Label } from "components/label";
 import { Input, Textarea } from "components/input";
 
 const FoodFormUpdate = ({ children, data }) => {
   const [priceRation, setPriceRation] = useState([]);
-  console.log("FoodFormUpdate ~ priceRation", priceRation);
   const [images, setImages] = useState([]);
   const [types, setTypes] = useState("");
   const [img, setImg] = useState([]);

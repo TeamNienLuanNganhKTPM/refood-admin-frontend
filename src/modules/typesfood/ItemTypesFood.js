@@ -38,7 +38,7 @@ const ItemTypesFood = ({ types }) => {
       <tr>
         <td>{types.FoodTypeId}</td>
         <td>{types.FoodTypeName}</td>
-        <td>{types.FoodTypeDescription.slice(0, 20) + "..."}</td>
+        <td>{types.FoodTypeDescription.slice(0, 40) + "..."}</td>
         <td className="flex items-center justify-start gap-x-4">
           <span onClick={openModal}>
             <svg

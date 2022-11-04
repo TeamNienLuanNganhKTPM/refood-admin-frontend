@@ -57,9 +57,9 @@ function* handleAddFood({ payload }) {
         showConfirmButton: false,
         timer: 2000,
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 2000);
       yield put(checkState(response.data.success));
     }
   } catch (error) {
