@@ -9,3 +9,4 @@ export const { default: IconDarkmode } = require("./IconDarkmode");
 export const { default: IconCategory } = require("./IconCategory");
 export const { default: IconOrder } = require("./IconOrder");
 export const { default: IconProduct } = require("./IconProduct");
+export const { default: IconUser } = require("./IconUser");

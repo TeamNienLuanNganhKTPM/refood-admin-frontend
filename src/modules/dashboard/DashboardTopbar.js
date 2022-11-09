@@ -49,9 +49,11 @@ const DashboardTopbar = () => {
           </span>
         </span>
         <div className="w-[52px] h-[52px] rounded-full cursor-pointer bg-primary bg-opacity-10 flex justify-center items-center">
-          <span className="text-xl font-semibold text-primary">
-            {infoAdmin?.AdminName.charAt(0)}
-          </span>
+          <Link to="/profile">
+            <span className="text-xl font-semibold text-primary">
+              {infoAdmin?.AdminName.charAt(0)}
+            </span>
+          </Link>
         </div>
       </div>
     </div>

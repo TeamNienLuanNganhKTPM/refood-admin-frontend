@@ -25,11 +25,10 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (selectMonthYear) {
+      console.log("useEffect ~ selectMonthYear", selectMonthYear);
       const year = Number(selectMonthYear.slice(0, 4));
       const month = Number(selectMonthYear.slice(5, 7));
-      if (month && year) {
-        dispatch(getAnalysicTimeWithMonthYear({ month: month, year: year }));
-      }
+      dispatch(getAnalysicTimeWithMonthYear(`${month}/${year}`));
     }
   }, [dispatch, selectMonthYear]);
 
@@ -161,7 +160,7 @@ const DashboardPage = () => {
             <div className="flex items-end justify-between">
               <div className="flex flex-col gap-3">
                 <span className="text-2xl font-semibold text-four text-opacity-70">
-                  {kFormat(analysis?.total_revenue) || 0 + "K"}
+                  {kFormat(analysis?.total_revenue) || 0 + " K"}
                 </span>
                 <Link to="/" className="text-four">
                   Xem tất cả

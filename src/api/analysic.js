@@ -9,9 +9,10 @@ export const getAnalysicAllTime = async () => {
   });
 };
 
-export const getAnalysicTimeWithMolthYear = async ({ data }) => {
+export const getAnalysicTimeWithMolthYear = async (param) => {
   return await instance.request({
     method: "GET",
-    url: `/admin/analysis/${data?.month}/${data?.year}`,
+    data: param,
+    url: `/admin/analysis/${param}`,
   });
 };

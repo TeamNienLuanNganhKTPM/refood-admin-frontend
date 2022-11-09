@@ -4,6 +4,7 @@ import authSlice from "./auth/slice";
 import foodTypesSlice from "./foodtypes/slice";
 import foodSlice from "./foods/slice";
 import ordersSlice from "./order/slice";
+import userSlice from "./users/slice";
 import partySlice from "./party/slice";
 const { combineReducers } = require("@reduxjs/toolkit");
 
@@ -13,4 +14,5 @@ export const reducer = combineReducers({
   foods: foodSlice,
   orders: ordersSlice,
   parties: partySlice,
+  users: userSlice,
 });

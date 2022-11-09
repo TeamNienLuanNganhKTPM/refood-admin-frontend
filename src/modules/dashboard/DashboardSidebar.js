@@ -14,6 +14,7 @@ import {
   IconParty,
   IconProduct,
   IconProfile,
+  IconUser,
 } from "components/icons";
 import { withErrorBoundary } from "react-error-boundary";
 
@@ -42,6 +43,11 @@ const sidebarLinks = [
     icon: <IconParty></IconParty>,
     title: "Đặt tiệc",
     url: "/party",
+  },
+  {
+    icon: <IconUser></IconUser>,
+    title: "User",
+    url: "/user",
   },
   {
     icon: <IconProfile></IconProfile>,

@@ -19,3 +19,8 @@ export const partyPage = {
   pageCurDefault: 1,
   pageOnNum: 10,
 };
+
+export const userPage = {
+  pageCurDefault: 1,
+  pageOnNum: 10,
+};
