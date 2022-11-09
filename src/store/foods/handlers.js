@@ -3,10 +3,12 @@
 import {
   addFoodAdminApi,
   deleteFoodApi,
+  getAllCommentsApi,
   getAllFoodsApi,
   getAllNewFoodApi,
   getAllPopularFoodApi,
   getFoodDetailApi,
+  relyCommentApi,
   updateFoodAdminApi,
 } from "api/foods";
 import { toast } from "react-toastify";
@@ -14,6 +16,7 @@ import { call, put } from "redux-saga/effects";
 import Swal from "sweetalert2";
 import {
   checkState,
+  updateAllComment,
   updateAllFoods,
   updateAllFoodsNew,
   updateAllFoodsPopular,
@@ -137,6 +140,39 @@ function* handleUpdateFoodDetail({ payload }) {
   }
 }
 
+function* handleGetAllComment({ payload }) {
+  try {
+    const response = yield call(getAllCommentsApi, payload);
+    if (response.status === 200) {
+      yield put(updateAllComment(response.data));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleRelyComment({ payload }) {
+  try {
+    const response = yield call(relyCommentApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      yield put(checkState(response.data.success));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    toast.error(message, {
+      position: "top-right",
+    });
+  }
+}
+
 export {
   handleGetAllFoods,
   handleDeleteFood,
@@ -145,4 +181,6 @@ export {
   handleUpdateFoodDetail,
   handleGetAllFoodsPopular,
   handleGetAllFoodsNew,
+  handleGetAllComment,
+  handleRelyComment,
 };

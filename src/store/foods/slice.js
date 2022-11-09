@@ -58,6 +58,18 @@ const foodSlice = createSlice({
       ...state,
       success: false,
     }),
+    getAllComment: (state, { payload }) => ({
+      ...state,
+    }),
+    updateAllComment: (state, { payload }) => ({
+      ...state,
+      comments: payload.comments,
+      pageNumberComment: payload.pageNum,
+    }),
+    relyComment: (state, { payload }) => ({
+      ...state,
+      success: false,
+    }),
   },
 });
 
@@ -74,5 +86,8 @@ export const {
   updateAllFoodsPopular,
   getAllFoodsNew,
   updateAllFoodsNew,
+  getAllComment,
+  updateAllComment,
+  relyComment,
 } = foodSlice.actions;
 export default foodSlice.reducer;

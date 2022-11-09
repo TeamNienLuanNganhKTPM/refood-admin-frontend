@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 
 const UpdateFood = lazy(() => import("./modules/foods/UpdateFood"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const RelyPage = lazy(() => import("./pages/RelyPage"));
 const UserPage = lazy(() => import("./pages/UserPage"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const OrderPage = lazy(() => import("./pages/OrderPage"));
@@ -44,6 +45,7 @@ function App() {
             element={<PartyDetail></PartyDetail>}
           ></Route>
           <Route path="/user" element={<UserPage></UserPage>}></Route>
+          <Route path="/rely" element={<RelyPage></RelyPage>}></Route>
           <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
         </Route>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>

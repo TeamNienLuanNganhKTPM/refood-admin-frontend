@@ -58,3 +58,19 @@ export const updateFoodAdminApi = async (data) => {
     url: `/admin/management/food/food-edit`,
   });
 };
+
+export const getAllCommentsApi = async (data) => {
+  const { pageCur, numOnPage } = data;
+  return await instance.request({
+    method: "GET",
+    url: `/admin/management/comment/get-unreply-comments/${numOnPage}/${pageCur}`,
+  });
+};
+
+export const relyCommentApi = async (data) => {
+  return await instance.request({
+    method: "POST",
+    data: data,
+    url: `/admin/management/comment/reply`,
+  });
+};

@@ -10,6 +10,7 @@ import {
   IconDarkmode,
   IconDashboard,
   IconLogout,
+  IconMessage,
   IconOrder,
   IconParty,
   IconProduct,
@@ -50,10 +51,16 @@ const sidebarLinks = [
     url: "/user",
   },
   {
+    icon: <IconMessage></IconMessage>,
+    title: "Rely",
+    url: "/rely",
+  },
+  {
     icon: <IconProfile></IconProfile>,
     title: "Admin",
     url: "/profile",
   },
+
   {
     icon: <IconLogout></IconLogout>,
     title: "Đăng xuất",
