@@ -55,9 +55,9 @@ const FoodFormUpdate = ({ children, data }) => {
       formData.append(
         "foodpriceration",
         JSON.stringify({
-          fooddetailid: priceRation[i]?.FoodDetailID
+          id: priceRation[i]?.FoodDetailID
             ? priceRation[i]?.FoodDetailID
-            : undefined,
+            : null,
           price: Number(priceRation[i].FoodPrice),
           ration: Number(priceRation[i].FoodRation),
         })

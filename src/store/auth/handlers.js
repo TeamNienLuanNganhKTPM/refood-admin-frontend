@@ -1,10 +1,12 @@
 /** @format */
 
+import { getAnalysicAllTime, getAnalysicTimeWithMolthYear } from "api/analysic";
+
 const { loginAdminApi } = require("api/admin");
 const { toast } = require("react-toastify");
 const { call, put } = require("redux-saga/effects");
 const { default: Swal } = require("sweetalert2");
-const { authUpdate } = require("./slice");
+const { authUpdate, updateAnalysic } = require("./slice");
 
 function* handleAdminLogin({ payload }) {
   try {
@@ -44,4 +46,33 @@ function* logAdminOut() {
     timer: 2000,
   });
 }
-export { handleAdminLogin, logAdminOut };
+
+function* handleGetAnalysicAllTime() {
+  try {
+    const response = yield call(getAnalysicAllTime);
+    if (response.status === 200) {
+      yield put(updateAnalysic(response.data.analysis));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleGetAnalysicTimeWithMonthYear({ payload }) {
+  try {
+    const response = yield call(getAnalysicTimeWithMolthYear, payload);
+    if (response.status === 200) {
+      yield put(updateAnalysic(response.data.analysis));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export {
+  handleAdminLogin,
+  logAdminOut,
+  handleGetAnalysicAllTime,
+  handleGetAnalysicTimeWithMonthYear,
+};

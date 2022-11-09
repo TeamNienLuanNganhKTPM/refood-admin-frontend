@@ -11,6 +11,8 @@ module.exports = {
       colors: {
         primary: "#1DC071",
         secondary: "#6F49FD",
+        third: "#299cdb",
+        four: "#f7b84b",
         text1: "#171725",
         text2: "#4B5264",
         text3: "#808191",
@@ -31,7 +33,7 @@ module.exports = {
         darkRed: "#422C32",
       },
       boxShadow: {
-        sdprimary: "10px 10px 20px rgba(211, 211, 211, 0.25)",
+        sdprimary: "10px 10px 20px rgba(211, 211, 211, 0.25) ",
       },
     },
   },

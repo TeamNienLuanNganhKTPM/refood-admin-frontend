@@ -13,7 +13,7 @@ const OrderPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    function fetchAllFood() {
+    function fetchAllOrder() {
       try {
         dispatch(
           getAllOrders({
@@ -25,7 +25,7 @@ const OrderPage = () => {
         console.log(error);
       }
     }
-    fetchAllFood();
+    fetchAllOrder();
   }, [dispatch]);
 
   const { orders, pageNumber } = useSelector((state) => state.orders);

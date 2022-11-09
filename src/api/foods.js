@@ -10,6 +10,22 @@ export const getAllFoodsApi = async (data) => {
   });
 };
 
+export const getAllPopularFoodApi = async (data) => {
+  const { pageCur, numOnPage } = data;
+  return await instance.request({
+    method: "GET",
+    url: `/food/get-popular-foods/${pageCur}/${numOnPage}`,
+  });
+};
+
+export const getAllNewFoodApi = async (data) => {
+  const { pageCur, numOnPage } = data;
+  return await instance.request({
+    method: "GET",
+    url: `/food/get-new-foods/${pageCur}/${numOnPage}`,
+  });
+};
+
 export const deleteFoodApi = async (data) => {
   return await instance.request({
     method: "DELETE",

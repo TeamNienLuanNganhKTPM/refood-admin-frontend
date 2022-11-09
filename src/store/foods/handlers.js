@@ -4,20 +4,51 @@ import {
   addFoodAdminApi,
   deleteFoodApi,
   getAllFoodsApi,
+  getAllNewFoodApi,
+  getAllPopularFoodApi,
   getFoodDetailApi,
   updateFoodAdminApi,
 } from "api/foods";
-import { foodsPage } from "constants/constants";
 import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
 import Swal from "sweetalert2";
-import { checkState, updateAllFoods, updateFoodDetail } from "./slice";
+import {
+  checkState,
+  updateAllFoods,
+  updateAllFoodsNew,
+  updateAllFoodsPopular,
+  updateFoodDetail,
+} from "./slice";
 
 function* handleGetAllFoods({ payload }) {
   try {
     const response = yield call(getAllFoodsApi, payload);
     if (response.status === 200) {
       yield put(updateAllFoods(response.data));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleGetAllFoodsPopular({ payload }) {
+  try {
+    const response = yield call(getAllPopularFoodApi, payload);
+    if (response.status === 200) {
+      yield put(updateAllFoodsPopular(response.data));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleGetAllFoodsNew({ payload }) {
+  try {
+    const response = yield call(getAllNewFoodApi, payload);
+    if (response.status === 200) {
+      yield put(updateAllFoodsNew(response.data));
     }
   } catch (error) {
     const { message } = error.response.data;
@@ -112,4 +143,6 @@ export {
   handleAddFood,
   handleGetFoodDetail,
   handleUpdateFoodDetail,
+  handleGetAllFoodsPopular,
+  handleGetAllFoodsNew,
 };

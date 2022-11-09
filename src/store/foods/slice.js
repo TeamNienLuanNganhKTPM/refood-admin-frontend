@@ -16,6 +16,26 @@ const foodSlice = createSlice({
       foods: payload.foods,
       success: false,
     }),
+    getAllFoodsPopular: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
+    updateAllFoodsPopular: (state, { payload }) => ({
+      ...state,
+      pageNumberPopular: payload.pageNum,
+      foodsPopular: payload.foods,
+      success: false,
+    }),
+    getAllFoodsNew: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
+    updateAllFoodsNew: (state, { payload }) => ({
+      ...state,
+      pageNumberNew: payload.pageNum,
+      foodsNew: payload.foods,
+      success: false,
+    }),
     addFoods: (state, { payload }) => ({
       ...state,
       success: false,
@@ -50,5 +70,9 @@ export const {
   getFoodDetail,
   updateFoodDetail,
   updateFood,
+  getAllFoodsPopular,
+  updateAllFoodsPopular,
+  getAllFoodsNew,
+  updateAllFoodsNew,
 } = foodSlice.actions;
 export default foodSlice.reducer;
