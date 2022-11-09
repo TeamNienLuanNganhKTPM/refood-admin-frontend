@@ -3,15 +3,19 @@
 import { takeLatest } from "redux-saga/effects";
 import {
   handleAdminLogin,
+  handleChangePasswordAdmin,
   handleGetAnalysicAllTime,
   handleGetAnalysicTimeWithMonthYear,
+  handleGetInfoAdmin,
   logAdminOut,
 } from "./handlers";
 import {
   authLogin,
   authLogOut,
+  changePasswordAdmin,
   getAnalysicAllTime,
   getAnalysicTimeWithMonthYear,
+  getInfoAdmin,
 } from "./slice";
 
 export default function* authWatcher() {
@@ -22,4 +26,6 @@ export default function* authWatcher() {
     getAnalysicTimeWithMonthYear.type,
     handleGetAnalysicTimeWithMonthYear
   );
+  yield takeLatest(getInfoAdmin.type, handleGetInfoAdmin);
+  yield takeLatest(changePasswordAdmin.type, handleChangePasswordAdmin);
 }

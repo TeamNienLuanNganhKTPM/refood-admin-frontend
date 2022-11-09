@@ -32,6 +32,16 @@ const authSlice = createSlice({
       ...state,
       analysis: payload,
     }),
+    getInfoAdmin: (state, { payload }) => ({
+      ...state,
+    }),
+    updateInfoAdmin: (state, { payload }) => ({
+      ...state,
+      infoAdmin: payload,
+    }),
+    changePasswordAdmin: (state, { payload }) => ({
+      ...state,
+    }),
   },
 });
 
@@ -42,5 +52,8 @@ export const {
   getAnalysicAllTime,
   updateAnalysic,
   getAnalysicTimeWithMonthYear,
+  getInfoAdmin,
+  updateInfoAdmin,
+  changePasswordAdmin,
 } = authSlice.actions;
 export default authSlice.reducer;

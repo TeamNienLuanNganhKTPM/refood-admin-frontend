@@ -5,6 +5,7 @@ import authWatcher from "./auth/saga";
 import foodsWatcher from "./foods/saga";
 import foodTypesWatcher from "./foodtypes/saga";
 import ordersWatcher from "./order/saga";
+import partiesWatcher from "./party/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     fork(foodTypesWatcher),
     fork(foodsWatcher),
     fork(ordersWatcher),
+    fork(partiesWatcher),
   ]);
 }

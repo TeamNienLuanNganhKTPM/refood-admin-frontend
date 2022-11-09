@@ -5,6 +5,7 @@ import DashboardMonthYear from "modules/dashboard/DashboardMonthYear";
 import ListFoodNew from "modules/foods/ListFoodNew";
 import ListFoodPopular from "modules/foods/ListFoodPopular";
 import ListOrderDashboard from "modules/order/ListOrderDashboard";
+import ListPartyDashboard from "modules/party/ListPartyDashboard";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -209,6 +210,12 @@ const DashboardPage = () => {
               <h3 className="text-xl font-semibold text-text1">Đơn hàng</h3>
             </div>
             <ListOrderDashboard></ListOrderDashboard>
+          </div>
+          <div className="mt-5">
+            <div className="py-4 mb-4 border-b border-b-line">
+              <h3 className="text-xl font-semibold text-text1">Đơn đặt tiệc</h3>
+            </div>
+            <ListPartyDashboard></ListPartyDashboard>
           </div>
         </div>
       </LayoutDashboardTable>

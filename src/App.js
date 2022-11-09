@@ -10,10 +10,11 @@ const OrderPage = lazy(() => import("./pages/OrderPage"));
 const OrderDetailPage = lazy(() => import("./pages/OrderDetailPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const LayoutDashboard = lazy(() => import("./layout/LayoutDashboard"));
-const InvoicePage = lazy(() => import("./pages/InvoicePage"));
+const PartyPage = lazy(() => import("./pages/PartyPage"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const AddFood = lazy(() => import("./modules/foods/AddFood"));
+const PartyDetail = lazy(() => import("./modules/party/PartyDetail"));
 
 function App() {
   return (
@@ -36,11 +37,12 @@ function App() {
             path="order/:slug"
             element={<OrderDetailPage></OrderDetailPage>}
           ></Route>
-          <Route path="/invoice" element={<InvoicePage></InvoicePage>}></Route>
+          <Route path="/party" element={<PartyPage></PartyPage>}></Route>
           <Route
-            path="/profile/customer"
-            element={<ProfilePage></ProfilePage>}
+            path="party/:slug"
+            element={<PartyDetail></PartyDetail>}
           ></Route>
+          <Route path="/profile" element={<ProfilePage></ProfilePage>}></Route>
         </Route>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
       </Routes>

@@ -4,19 +4,19 @@ import { foodsPage } from "constants/constants";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOrders } from "store/order/slice";
-import ListOrders from "./ListOrders";
+import { getAllPartys } from "store/party/slice";
+import ListParty from "./ListParty";
 
-const ListOrderDashboard = () => {
+const ListPartyDashboard = () => {
   const [nextPage, setNextPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const dispatch = useDispatch();
-  const { orders, pageNumber } = useSelector((state) => state.orders);
+  const { parties, pageNumberParty } = useSelector((state) => state.parties);
   useEffect(() => {
-    function fetchAllFood() {
+    function fetchAllParties() {
       try {
         dispatch(
-          getAllOrders({
+          getAllPartys({
             pageCur: foodsPage.pageCurDefault,
             numOnPage: foodsPage.pageOnNum,
           })
@@ -25,19 +25,19 @@ const ListOrderDashboard = () => {
         console.log(error);
       }
     }
-    fetchAllFood();
+    fetchAllParties();
   }, [dispatch]);
 
   useEffect(() => {
-    if (!orders || !orders?.length) return;
-    setPageCount(pageNumber);
-  }, [orders, nextPage, pageNumber]);
+    if (!parties || !parties?.length) return;
+    setPageCount(pageNumberParty);
+  }, [parties, nextPage, pageNumberParty]);
 
   const handlePageClick = (event) => {
     setNextPage(event.selected + 1);
 
     dispatch(
-      getAllOrders({
+      getAllPartys({
         pageCur: event.selected + 1,
         numOnPage: foodsPage.pageOnNum,
       })
@@ -51,15 +51,18 @@ const ListOrderDashboard = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Ngày đặt</th>
-              <th>Phương thức thanh toán</th>
+              <th>Thời gian đãi tiệc</th>
+              <th>Địa điểm</th>
+              <th>Số bàn</th>
               <th>Trạng thái</th>
-              <th>Tổng tiền</th>
               <th>Hành động</th>
             </tr>
           </thead>
           <tbody>
-            <ListOrders data={orders}></ListOrders>
+            {parties?.length > 0 &&
+              parties.map((item) => (
+                <ListParty data={item} key={item.PartyID}></ListParty>
+              ))}
           </tbody>
         </table>
       </div>
@@ -79,4 +82,4 @@ const ListOrderDashboard = () => {
   );
 };
 
-export default ListOrderDashboard;
+export default ListPartyDashboard;

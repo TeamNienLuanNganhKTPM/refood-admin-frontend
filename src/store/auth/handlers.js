@@ -2,11 +2,15 @@
 
 import { getAnalysicAllTime, getAnalysicTimeWithMolthYear } from "api/analysic";
 
-const { loginAdminApi } = require("api/admin");
+const {
+  loginAdminApi,
+  getInfoAdminApi,
+  changePasswordApi,
+} = require("api/admin");
 const { toast } = require("react-toastify");
 const { call, put } = require("redux-saga/effects");
 const { default: Swal } = require("sweetalert2");
-const { authUpdate, updateAnalysic } = require("./slice");
+const { authUpdate, updateAnalysic, updateInfoAdmin } = require("./slice");
 
 function* handleAdminLogin({ payload }) {
   try {
@@ -70,9 +74,42 @@ function* handleGetAnalysicTimeWithMonthYear({ payload }) {
   }
 }
 
+function* handleGetInfoAdmin() {
+  try {
+    const response = yield call(getInfoAdminApi);
+    if (response.status === 200) {
+      yield put(updateInfoAdmin(response.data.admin_info));
+    }
+  } catch (error) {
+    const { message } = error.response.data;
+    console.log(message);
+  }
+}
+
+function* handleChangePasswordAdmin({ payload }) {
+  try {
+    const response = yield call(changePasswordApi, payload);
+    if (response.status === 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: response.data.message,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  } catch (error) {
+    toast.error(error?.response?.data?.message, {
+      position: "top-right",
+    });
+  }
+}
+
 export {
   handleAdminLogin,
   logAdminOut,
   handleGetAnalysicAllTime,
   handleGetAnalysicTimeWithMonthYear,
+  handleGetInfoAdmin,
+  handleChangePasswordAdmin,
 };

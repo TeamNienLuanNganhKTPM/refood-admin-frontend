@@ -2,7 +2,7 @@
 
 export const { default: IconEyeToggle } = require("./IconEyeToggle");
 export const { default: IconDashboard } = require("./IconDashboard");
-export const { default: IconWithdraw } = require("./IconWithdraw");
+export const { default: IconParty } = require("./IconParty");
 export const { default: IconProfile } = require("./IconProfile");
 export const { default: IconLogout } = require("./IconLogout");
 export const { default: IconDarkmode } = require("./IconDarkmode");

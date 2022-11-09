@@ -9,3 +9,18 @@ export const loginAdminApi = async (admin) => {
     url: "/admin/auth/login",
   });
 };
+
+export const getInfoAdminApi = async () => {
+  return await instance.request({
+    method: "GET",
+    url: "/admin/auth/info",
+  });
+};
+
+export const changePasswordApi = async (data) => {
+  return await instance.request({
+    method: "PUT",
+    data: data,
+    url: `/admin/auth/update/password`,
+  });
+};

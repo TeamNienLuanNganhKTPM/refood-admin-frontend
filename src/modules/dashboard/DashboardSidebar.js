@@ -11,9 +11,9 @@ import {
   IconDashboard,
   IconLogout,
   IconOrder,
+  IconParty,
   IconProduct,
   IconProfile,
-  IconWithdraw,
 } from "components/icons";
 import { withErrorBoundary } from "react-error-boundary";
 
@@ -39,14 +39,14 @@ const sidebarLinks = [
     url: "/order",
   },
   {
-    icon: <IconWithdraw></IconWithdraw>,
-    title: "Hóa đơn",
-    url: "/invoice",
+    icon: <IconParty></IconParty>,
+    title: "Đặt tiệc",
+    url: "/party",
   },
   {
     icon: <IconProfile></IconProfile>,
-    title: "Khách hàng",
-    url: "/profile/customer",
+    title: "Admin",
+    url: "/profile",
   },
   {
     icon: <IconLogout></IconLogout>,

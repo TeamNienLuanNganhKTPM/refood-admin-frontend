@@ -1,11 +1,23 @@
 /** @format */
 
 import ErrorComponent from "components/common/ErrorComponent";
-import React from "react";
+import React, { useEffect } from "react";
 import { withErrorBoundary } from "react-error-boundary";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getInfoAdmin } from "store/auth/slice";
 
 const DashboardTopbar = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    function fetchInfoAdmin() {
+      dispatch(getInfoAdmin());
+    }
+    fetchInfoAdmin();
+  }, [dispatch]);
+
+  const { infoAdmin } = useSelector((state) => state.auth);
+
   return (
     <div className="flex items-center justify-between pb-8 border-b border-b-line">
       <div className="flex items-center flex-1 gap-x-10">
@@ -16,11 +28,8 @@ const DashboardTopbar = () => {
             className="max-w-auto h-[52px]"
           />
         </Link>
-        {/* <div className=" max-w-[458px] w-full">
-          <DashboardSearch></DashboardSearch>
-        </div> */}
       </div>
-      <div className="flex items-center justify-end flex-1 gap-x-10">
+      <div className="flex items-center justify-end flex-1 gap-x-6">
         <span className="w-[52px] h-[52px] bg-red-200 text-error flex items-center justify-center rounded-full relative cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -39,11 +48,11 @@ const DashboardTopbar = () => {
             0
           </span>
         </span>
-        <img
-          src="https://images.unsplash.com/photo-1608889175123-8ee362201f81?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjh8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60"
-          alt="admin-avatar"
-          className="object-cover rounded-full w-[52px] h-[52px]"
-        />
+        <div className="w-[52px] h-[52px] rounded-full cursor-pointer bg-primary bg-opacity-10 flex justify-center items-center">
+          <span className="text-xl font-semibold text-primary">
+            {infoAdmin?.AdminName.charAt(0)}
+          </span>
+        </div>
       </div>
     </div>
   );
