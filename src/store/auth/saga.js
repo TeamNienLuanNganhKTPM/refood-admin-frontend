@@ -6,6 +6,7 @@ import {
   handleChangePasswordAdmin,
   handleGetAnalysicAllTime,
   handleGetAnalysicTimeWithMonthYear,
+  handleGetDataChartMonthYear,
   handleGetInfoAdmin,
   logAdminOut,
 } from "./handlers";
@@ -15,6 +16,7 @@ import {
   changePasswordAdmin,
   getAnalysicAllTime,
   getAnalysicTimeWithMonthYear,
+  getDataChartMonthYear,
   getInfoAdmin,
 } from "./slice";
 
@@ -28,4 +30,5 @@ export default function* authWatcher() {
   );
   yield takeLatest(getInfoAdmin.type, handleGetInfoAdmin);
   yield takeLatest(changePasswordAdmin.type, handleChangePasswordAdmin);
+  yield takeLatest(getDataChartMonthYear.type, handleGetDataChartMonthYear);
 }

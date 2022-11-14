@@ -16,3 +16,11 @@ export const getAnalysicTimeWithMolthYear = async (param) => {
     url: `/admin/analysis/${param}`,
   });
 };
+
+export const getDataChartMonthYearApi = async (param) => {
+  return await instance.request({
+    method: "GET",
+    data: param,
+    url: `/admin/analysis/revenue-chart/${param}`,
+  });
+};

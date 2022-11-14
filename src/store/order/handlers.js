@@ -4,6 +4,7 @@ import {
   cancelOrderAdminApi,
   getAllOrdersApi,
   getOrderDetailApi,
+  searchOrderApi,
   updateOrderAdminApi,
 } from "api/order";
 import { toast } from "react-toastify";
@@ -81,9 +82,21 @@ function* handleCancelOrder({ payload }) {
   }
 }
 
+function* handleSearchOrder({ payload }) {
+  try {
+    const response = yield call(searchOrderApi, payload);
+    if (response.status === 200) {
+      yield put(updateAllOrders(response.data));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   handleGetAllOrders,
   handleGetOrderDetail,
   handleUpdateOrder,
   handleCancelOrder,
+  handleSearchOrder,
 };

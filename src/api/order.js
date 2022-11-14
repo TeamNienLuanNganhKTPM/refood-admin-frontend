@@ -34,3 +34,10 @@ export const cancelOrderAdminApi = async (data) => {
     url: `/admin/management/order/cancel-order`,
   });
 };
+
+export const searchOrderApi = async (param) => {
+  return await instance.request({
+    method: "GET",
+    url: `/admin/management/order/filter/${param}`,
+  });
+};

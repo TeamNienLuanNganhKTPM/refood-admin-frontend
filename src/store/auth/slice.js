@@ -42,6 +42,13 @@ const authSlice = createSlice({
     changePasswordAdmin: (state, { payload }) => ({
       ...state,
     }),
+    getDataChartMonthYear: (state, { payload }) => ({
+      ...state,
+    }),
+    updateRevenue: (state, { payload }) => ({
+      ...state,
+      revenue: payload,
+    }),
   },
 });
 
@@ -55,5 +62,7 @@ export const {
   getInfoAdmin,
   updateInfoAdmin,
   changePasswordAdmin,
+  getDataChartMonthYear,
+  updateRevenue,
 } = authSlice.actions;
 export default authSlice.reducer;

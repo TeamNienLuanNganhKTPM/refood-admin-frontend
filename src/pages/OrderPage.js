@@ -5,11 +5,14 @@ import ListOrders from "modules/order/ListOrders";
 import LayoutDashboardTable from "layout/LayoutDashboardTable";
 import { useDispatch, useSelector } from "react-redux";
 import { ordersPage } from "constants/constants";
-import { getAllOrders } from "store/order/slice";
+import { getAllOrders, searchOrder } from "store/order/slice";
+import OrderSearch from "modules/order/OrderSearch";
+const queryString = require("query-string");
 
 const OrderPage = () => {
   const [nextPage, setNextPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+  const [search, setSearch] = useState({});
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,16 +46,27 @@ const OrderPage = () => {
       left: 0,
       behavior: "smooth",
     });
-    dispatch(
-      getAllOrders({
-        pageCur: event.selected + 1,
-        numOnPage: ordersPage.pageOnNum,
-      })
-    );
+    if (
+      search?.orderid ||
+      search?.customerphone ||
+      search?.datestart ||
+      search?.dateend
+    ) {
+      const param = queryString.stringify(search);
+      dispatch(searchOrder(`${event.selected + 1}/10?${param}`));
+    } else {
+      dispatch(
+        getAllOrders({
+          pageCur: event.selected + 1,
+          numOnPage: ordersPage.pageOnNum,
+        })
+      );
+    }
   };
 
   return (
     <LayoutDashboardTable title="Danh sách đơn hàng">
+      <OrderSearch setSearch={setSearch}></OrderSearch>
       <table>
         <thead>
           <tr>

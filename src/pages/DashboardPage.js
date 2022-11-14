@@ -1,6 +1,7 @@
 /** @format */
 
 import LayoutDashboardTable from "layout/LayoutDashboardTable";
+import DashboardChart from "modules/dashboard/DashboardChart";
 import DashboardMonthYear from "modules/dashboard/DashboardMonthYear";
 import ListFoodNew from "modules/foods/ListFoodNew";
 import ListFoodPopular from "modules/foods/ListFoodPopular";
@@ -25,7 +26,6 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (selectMonthYear) {
-      console.log("useEffect ~ selectMonthYear", selectMonthYear);
       const year = Number(selectMonthYear.slice(0, 4));
       const month = Number(selectMonthYear.slice(5, 7));
       dispatch(getAnalysicTimeWithMonthYear(`${month}/${year}`));
@@ -50,7 +50,7 @@ const DashboardPage = () => {
             setSelectMonthYear={setSelectMonthYear}
           ></DashboardMonthYear>
         </div>
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-4 gap-5 mb-10">
           <div className="flex flex-col gap-2 p-5 rounded shadow-lg shadow-primary-500/50 bg-primary bg-opacity-20">
             <span className="text-2xl font-semibold uppercase cursor-default text-primary">
               Món ăn
@@ -187,6 +187,7 @@ const DashboardPage = () => {
             </div>
           </div>
         </div>
+        <DashboardChart></DashboardChart>
         <div className="grid grid-cols-2 gap-5">
           <div className="mt-5">
             <div className="py-4 mb-4 border-b border-b-line">

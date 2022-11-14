@@ -1,6 +1,10 @@
 /** @format */
 
-import { getAnalysicAllTime, getAnalysicTimeWithMolthYear } from "api/analysic";
+import {
+  getAnalysicAllTime,
+  getAnalysicTimeWithMolthYear,
+  getDataChartMonthYearApi,
+} from "api/analysic";
 
 const {
   loginAdminApi,
@@ -10,7 +14,12 @@ const {
 const { toast } = require("react-toastify");
 const { call, put } = require("redux-saga/effects");
 const { default: Swal } = require("sweetalert2");
-const { authUpdate, updateAnalysic, updateInfoAdmin } = require("./slice");
+const {
+  authUpdate,
+  updateAnalysic,
+  updateInfoAdmin,
+  updateRevenue,
+} = require("./slice");
 
 function* handleAdminLogin({ payload }) {
   try {
@@ -105,6 +114,17 @@ function* handleChangePasswordAdmin({ payload }) {
   }
 }
 
+function* handleGetDataChartMonthYear({ payload }) {
+  try {
+    const response = yield call(getDataChartMonthYearApi, payload);
+    if (response.status === 200) {
+      yield put(updateRevenue(response.data.revenue));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   handleAdminLogin,
   logAdminOut,
@@ -112,4 +132,5 @@ export {
   handleGetAnalysicTimeWithMonthYear,
   handleGetInfoAdmin,
   handleChangePasswordAdmin,
+  handleGetDataChartMonthYear,
 };
