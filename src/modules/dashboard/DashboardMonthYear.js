@@ -17,15 +17,14 @@ const DashboardMonthYear = ({ setSelectMonthYear }) => {
   }, [values, setSelectMonthYear]);
   return (
     <>
-      <div className="px-4 py-3 mb-5 border rounded border-line">
-        <input
-          type="month"
-          name="name"
-          onChange={(e) => handleOnChange(e)}
-          value={values}
-          placeholder="Chọn tháng năm"
-        />
-      </div>
+      <input
+        type="text"
+        name="monthyear"
+        onFocus={(e) => (e.target.type = "month")}
+        onChange={(e) => handleOnChange(e)}
+        placeholder="Lọc theo tháng"
+        className="w-[220px] px-6 py-4 text-sm font-medium border rounded-xl placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-grayf3 focus:border-primary"
+      />
     </>
   );
 };

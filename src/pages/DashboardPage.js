@@ -1,5 +1,6 @@
 /** @format */
 
+import NumberIncrease from "components/common/NumberIncrease";
 import LayoutDashboardTable from "layout/LayoutDashboardTable";
 import DashboardChart from "modules/dashboard/DashboardChart";
 import DashboardMonthYear from "modules/dashboard/DashboardMonthYear";
@@ -16,7 +17,6 @@ import {
   getAnalysicAllTime,
   getAnalysicTimeWithMonthYear,
 } from "store/auth/slice";
-import kFormat from "utils/kFormat";
 
 const DashboardPage = () => {
   const [selectMonthYear, setSelectMonthYear] = useState("");
@@ -42,10 +42,7 @@ const DashboardPage = () => {
   return (
     <div>
       <LayoutDashboardTable title="Trang chủ">
-        <div className="flex items-end justify-end gap-4">
-          <span className="mb-5 font-medium text-text1">
-            Lọc theo tháng năm:
-          </span>
+        <div className="flex justify-end mb-5">
           <DashboardMonthYear
             setSelectMonthYear={setSelectMonthYear}
           ></DashboardMonthYear>
@@ -58,7 +55,9 @@ const DashboardPage = () => {
             <div className="flex items-end justify-between">
               <div className="flex flex-col gap-3">
                 <span className="text-2xl font-semibold text-primary text-opacity-70">
-                  {kFormat(analysis?.num_of_foods)}
+                  <NumberIncrease
+                    numberData={analysis?.num_of_foods}
+                  ></NumberIncrease>
                 </span>
                 <Link to="/product" className="text-primary">
                   Xem tất cả
@@ -92,7 +91,9 @@ const DashboardPage = () => {
             <div className="flex items-end justify-between">
               <div className="flex flex-col gap-3">
                 <span className="text-2xl font-semibold text-secondary text-opacity-70">
-                  {kFormat(analysis?.num_of_order)}
+                  <NumberIncrease
+                    numberData={analysis?.num_of_order}
+                  ></NumberIncrease>
                 </span>
                 <Link to="/order" className="text-secondary">
                   Xem tất cả
@@ -126,7 +127,9 @@ const DashboardPage = () => {
             <div className="flex items-end justify-between">
               <div className="flex flex-col gap-3">
                 <span className="text-2xl font-semibold text-third text-opacity-70">
-                  {kFormat(analysis?.num_of_customers)}
+                  <NumberIncrease
+                    numberData={analysis?.num_of_customers}
+                  ></NumberIncrease>
                 </span>
                 <Link to="/" className="text-third">
                   Xem chi tiết
@@ -160,7 +163,9 @@ const DashboardPage = () => {
             <div className="flex items-end justify-between">
               <div className="flex flex-col gap-3">
                 <span className="text-2xl font-semibold text-four text-opacity-70">
-                  {kFormat(analysis?.total_revenue) || 0 + " K"}
+                  <NumberIncrease
+                    numberData={analysis?.total_revenue}
+                  ></NumberIncrease>
                 </span>
                 <Link to="/" className="text-four">
                   Xem tất cả
