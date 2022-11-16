@@ -12,6 +12,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { useEffect } from "react";
 // import faker from "faker";
 
 ChartJS.register(
@@ -24,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = ({ revenue, labels, max }) => {
+const LineChart = ({ labels, max, titleX }) => {
   const options = {
     responsive: true,
     interaction: {
@@ -39,7 +40,7 @@ const LineChart = ({ revenue, labels, max }) => {
         position: "bottom",
         title: {
           display: true,
-          text: "Ngày",
+          text: titleX,
           align: "end",
           font: {
             size: 16,
@@ -49,13 +50,13 @@ const LineChart = ({ revenue, labels, max }) => {
         },
         max: max,
         ticks: {
-          stepSize: 2,
+          stepSize: 1,
         },
       },
     },
   };
   const data = {
-    labels,
+    labels: labels?.map((item) => item.KEY),
     datasets: [
       {
         label: "Doanh thu",
@@ -63,7 +64,7 @@ const LineChart = ({ revenue, labels, max }) => {
         borderColor: "#1DC071",
         pointHoverBackgroundColor: "#fff",
         borderWidth: 2,
-        data: revenue,
+        data: labels?.map((item) => item.AMOUNT),
         xAxisId: "x",
       },
     ],

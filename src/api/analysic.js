@@ -24,3 +24,11 @@ export const getDataChartMonthYearApi = async (param) => {
     url: `/admin/analysis/revenue-chart/${param}`,
   });
 };
+
+export const getDataChartYearApi = async (param) => {
+  return await instance.request({
+    method: "GET",
+    data: param,
+    url: `/admin/analysis/revenue-chart/with/year/${param}`,
+  });
+};

@@ -3,7 +3,7 @@
 import NumberIncrease from "components/common/NumberIncrease";
 import LayoutDashboardTable from "layout/LayoutDashboardTable";
 import DashboardChart from "modules/dashboard/DashboardChart";
-import DashboardMonthYear from "modules/dashboard/DashboardMonthYear";
+import DashboardMonth from "modules/dashboard/DashboardMonth";
 import ListFoodNew from "modules/foods/ListFoodNew";
 import ListFoodPopular from "modules/foods/ListFoodPopular";
 import ListOrderDashboard from "modules/order/ListOrderDashboard";
@@ -19,18 +19,18 @@ import {
 } from "store/auth/slice";
 
 const DashboardPage = () => {
-  const [selectMonthYear, setSelectMonthYear] = useState("");
+  const [month, setMonth] = useState(null);
 
   const dispatch = useDispatch();
   const { analysis } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (selectMonthYear) {
-      const year = Number(selectMonthYear.slice(0, 4));
-      const month = Number(selectMonthYear.slice(5, 7));
-      dispatch(getAnalysicTimeWithMonthYear(`${month}/${year}`));
+    if (month) {
+      const y = month.getFullYear();
+      const m = month.getMonth() + 1;
+      dispatch(getAnalysicTimeWithMonthYear(`${m}/${y}`));
     }
-  }, [dispatch, selectMonthYear]);
+  }, [dispatch, month]);
 
   useEffect(() => {
     function fetchAnalysicAllTime() {
@@ -43,9 +43,7 @@ const DashboardPage = () => {
     <div>
       <LayoutDashboardTable title="Trang chủ">
         <div className="flex justify-end mb-5">
-          <DashboardMonthYear
-            setSelectMonthYear={setSelectMonthYear}
-          ></DashboardMonthYear>
+          <DashboardMonth month={month} setMonth={setMonth}></DashboardMonth>
         </div>
         <div className="grid grid-cols-4 gap-5 mb-10">
           <div className="flex flex-col gap-2 p-5 rounded shadow-lg shadow-primary-500/50 bg-primary bg-opacity-20">
@@ -164,7 +162,9 @@ const DashboardPage = () => {
               <div className="flex flex-col gap-3">
                 <span className="text-2xl font-semibold text-four text-opacity-70">
                   <NumberIncrease
-                    numberData={analysis?.total_revenue}
+                    numberData={
+                      analysis?.total_revenue ? analysis?.total_revenue : 0
+                    }
                   ></NumberIncrease>
                 </span>
                 <Link to="/" className="text-four">
@@ -196,7 +196,7 @@ const DashboardPage = () => {
         <div className="grid grid-cols-2 gap-5">
           <div className="mt-5">
             <div className="py-4 mb-4 border-b border-b-line">
-              <h3 className="text-xl font-semibold text-text1">
+              <h3 className="text-xl font-semibold uppercase text-text1">
                 Món ăn phổ biến nhất
               </h3>
             </div>
@@ -204,7 +204,7 @@ const DashboardPage = () => {
           </div>
           <div className="mt-5">
             <div className="py-4 mb-4 border-b border-b-line">
-              <h3 className="text-xl font-semibold text-text1">
+              <h3 className="text-xl font-semibold uppercase text-text1">
                 Món ăn mới nhất
               </h3>
             </div>
@@ -212,13 +212,17 @@ const DashboardPage = () => {
           </div>
           <div className="mt-5">
             <div className="py-4 mb-4 border-b border-b-line">
-              <h3 className="text-xl font-semibold text-text1">Đơn hàng</h3>
+              <h3 className="text-xl font-semibold uppercase text-text1">
+                Đơn hàng
+              </h3>
             </div>
             <ListOrderDashboard></ListOrderDashboard>
           </div>
           <div className="mt-5">
             <div className="py-4 mb-4 border-b border-b-line">
-              <h3 className="text-xl font-semibold text-text1">Đơn đặt tiệc</h3>
+              <h3 className="text-xl font-semibold uppercase text-text1">
+                Đơn đặt tiệc
+              </h3>
             </div>
             <ListPartyDashboard></ListPartyDashboard>
           </div>

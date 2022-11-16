@@ -4,6 +4,7 @@ import {
   getAnalysicAllTime,
   getAnalysicTimeWithMolthYear,
   getDataChartMonthYearApi,
+  getDataChartYearApi,
 } from "api/analysic";
 
 const {
@@ -125,6 +126,17 @@ function* handleGetDataChartMonthYear({ payload }) {
   }
 }
 
+function* handleGetDataChartYear({ payload }) {
+  try {
+    const response = yield call(getDataChartYearApi, payload);
+    if (response.status === 200) {
+      yield put(updateRevenue(response.data.revenue));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   handleAdminLogin,
   logAdminOut,
@@ -133,4 +145,5 @@ export {
   handleGetInfoAdmin,
   handleChangePasswordAdmin,
   handleGetDataChartMonthYear,
+  handleGetDataChartYear,
 };

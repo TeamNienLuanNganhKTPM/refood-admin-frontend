@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ordersPage } from "constants/constants";
 import { getAllOrders, searchOrder } from "store/order/slice";
 import OrderSearch from "modules/order/OrderSearch";
+import OrderRangeDate from "modules/order/OrderRangeDate";
 const queryString = require("query-string");
 
 const OrderPage = () => {

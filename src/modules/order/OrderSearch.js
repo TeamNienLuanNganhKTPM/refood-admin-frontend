@@ -3,20 +3,45 @@
 import { Button } from "components/button";
 import { Input } from "components/input";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { searchOrder } from "store/order/slice";
 import Swal from "sweetalert2";
+import OrderRangeDate from "./OrderRangeDate";
 const queryString = require("query-string");
 
 const OrderSearch = ({ setSearch }) => {
-  const { control, handleSubmit, register } = useForm({
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const { control, handleSubmit, setValue } = useForm({
     mode: "onChange",
   });
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (startDate) {
+      const y = startDate.getFullYear();
+      const m = startDate.getMonth() + 1;
+      const d = startDate.getDate();
+      setValue("datestart", `${y}-${m}-${d}`);
+    }
+  }, [startDate, setValue]);
+
+  useEffect(() => {
+    if (endDate) {
+      const y = endDate.getFullYear();
+      const m = endDate.getMonth() + 1;
+      const d = endDate.getDate();
+      setValue("dateend", `${y}-${m}-${d}`);
+    }
+  }, [endDate, setValue]);
+
   const handleSubmitSearchOrder = (values) => {
+    console.log("handleSubmitSearchOrder ~ values", values);
     const param = queryString.stringify(values);
+    console.log("handleSubmitSearchOrder ~ param", param);
     setSearch(values);
     Swal.fire({
       title: "Chờ trong giây lát!",
@@ -49,7 +74,7 @@ const OrderSearch = ({ setSearch }) => {
           placeholder="Tìm theo số điện thoại"
         ></Input>
         <div className="flex items-end gap-2">
-          <input
+          {/* <input
             type="text"
             name="datestart"
             {...register("datestart")}
@@ -65,7 +90,13 @@ const OrderSearch = ({ setSearch }) => {
             onFocus={(e) => (e.target.type = "date")}
             placeholder="Ngày kết thúc"
             className="w-[220px] px-6 py-4 text-sm font-medium border rounded-xl placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-grayf3 focus:border-primary"
-          />
+          /> */}
+          <OrderRangeDate
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+          ></OrderRangeDate>
         </div>
       </div>
       <div className="flex justify-end mt-4">
